@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>José Samuel Puga Beltrán — Tech Lead</title>
+<!-- Metadatos Open Graph para redes sociales -->
+<meta property="og:title" content="José Samuel Puga Beltrán — Tech Lead">
+<meta property="og:description" content="Más de 10 años liderando equipos y proyectos de software, arquitectura de sistemas y automatización.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://samuelpuga.com/">
+<meta name="description" content="José Samuel Puga Beltrán — Tech Lead. Liderazgo técnico, integración de sistemas y desarrollo de software.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0d1826;
+    --bg-panel: #122238;
+    --bg-panel-2: #0f1e32;
+    --grid-line: rgba(143,163,191,0.09);
+    --border: rgba(143,163,191,0.16);
+    --text: #e9edf3;
+    --text-muted: #8fa3bf;
+    --text-dim: #5d7290;
+    --accent: #e8a33d;
+    --accent-dim: rgba(232,163,61,0.35);
+    --teal: #4fd1c5;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background:
+      linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0/48px 48px,
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0/48px 48px,
+      var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: inherit; }
+
+  .wrap{
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    position: sticky; top:0; z-index: 20;
+    background: rgba(13,24,38,0.86);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .topbar-inner{
+    max-width: 980px; margin:0 auto; padding: 14px 28px;
+    display:flex; align-items:center; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 12.5px; color: var(--text-muted);
+  }
+  .topbar-inner .id{ color: var(--text); letter-spacing: 0.02em; }
+  .topbar-inner .id span{ color: var(--accent); }
+  .topbar-links{ display:flex; gap:20px; }
+  .topbar-links a{ text-decoration:none; color: var(--text-muted); transition: color .15s; }
+  .topbar-links a:hover{ color: var(--accent); }
+  .topbar-links a:focus-visible{ outline: 1px solid var(--accent); outline-offset: 3px; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 92px 0 70px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; right: -120px; top: -80px;
+    width: 420px; height: 420px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; right: -40px; top: 0;
+    width: 300px; height: 300px;
+    border: 1px solid var(--grid-line);
+    border-radius: 50%;
+  }
+  .eyebrow{
+    font-family: var(--font-mono); font-size: 12.5px; color: var(--accent);
+    letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 22px;
+    display:flex; align-items:center; gap: 10px;
+  }
+  .eyebrow::before{
+    content:""; width: 7px; height:7px; background: var(--accent); border-radius: 50%;
+    box-shadow: 0 0 0 4px var(--accent-dim);
+  }
+  h1{
+    font-family: var(--font-display); font-weight: 700;
+    font-size: clamp(38px, 6vw, 64px);
+    letter-spacing: -0.01em;
+    line-height: 1.04;
+    max-width: 780px;
+  }
+  .role-line{
+    margin-top: 18px;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    color: var(--teal);
+    letter-spacing: 0.01em;
+  }
+  .role-line .sep{ color: var(--text-dim); margin: 0 8px; }
+  .pitch{
+    margin-top: 26px;
+    max-width: 620px;
+    color: var(--text-muted);
+    font-size: 16.5px;
+  }
+  .hero-cta{
+    margin-top: 38px;
+    display:flex; gap: 14px; flex-wrap: wrap;
+  }
+  .btn{
+    font-family: var(--font-mono); font-size: 13px;
+    padding: 12px 22px;
+    border-radius: 3px;
+    text-decoration: none;
+    display:inline-flex; align-items:center; gap:8px;
+    transition: all .15s ease;
+  }
+  .btn-primary{
+    background: var(--accent); color: #14202f; font-weight: 600;
+  }
+  .btn-primary:hover{ background: #f3b458; transform: translateY(-1px); }
+  .btn-ghost{
+    border: 1px solid var(--border); color: var(--text-muted);
+  }
+  .btn-ghost:hover{ border-color: var(--accent-dim); color: var(--text); }
+  .btn:focus-visible{ outline: 1px solid var(--accent); outline-offset: 3px; }
+
+  /* ---------- Section shell ---------- */
+  section{ padding: 64px 0; border-top: 1px solid var(--border); }
+  .section-head{
+    display:flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 40px; gap: 20px; flex-wrap: wrap;
+  }
+  .section-num{
+    font-family: var(--font-mono); font-size: 12px; color: var(--text-dim);
+  }
+  h2{
+    font-family: var(--font-display); font-size: 26px; font-weight: 600;
+    letter-spacing: -0.005em;
+  }
+
+  /* ---------- Timeline / pipeline ---------- */
+  .pipeline{ position: relative; }
+  .pipeline::before{
+    content:"";
+    position:absolute; left: 5px; top: 8px; bottom: 8px;
+    width: 1px;
+    background: repeating-linear-gradient(
+      to bottom, var(--accent-dim) 0 6px, transparent 6px 12px
+    );
+  }
+  .role{
+    position: relative;
+    padding: 0 0 46px 42px;
+  }
+  .role:last-child{ padding-bottom: 0; }
+  .role::before{
+    content:"";
+    position:absolute; left: 0; top: 4px;
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+  }
+  .role.current::before{
+    box-shadow: 0 0 0 5px var(--accent-dim);
+  }
+  .role-top{
+    display:flex; align-items:baseline; justify-content: space-between;
+    flex-wrap: wrap; gap: 8px 20px;
+    margin-bottom: 6px;
+  }
+  .role-title{
+    font-family: var(--font-display); font-size: 19px; font-weight: 600;
+  }
+  .role-dates{
+    font-family: var(--font-mono); font-size: 12px; color: var(--text-dim);
+    white-space: nowrap;
+  }
+  .role-company{
+    font-family: var(--font-mono); font-size: 13px; color: var(--teal);
+    margin-bottom: 12px;
+  }
+  .role-desc{ color: var(--text-muted); font-size: 15px; margin-bottom: 14px; max-width: 680px; }
+  .role-bullets{ list-style:none; display:grid; gap:7px; margin-bottom: 16px; }
+  .role-bullets li{
+    font-size: 14px; color: var(--text); padding-left: 16px; position: relative;
+  }
+  .role-bullets li::before{
+    content:"–"; position:absolute; left:0; color: var(--text-dim);
+  }
+  .tags{ display:flex; flex-wrap: wrap; gap: 7px; }
+  .tag{
+    font-family: var(--font-mono); font-size: 11.5px;
+    padding: 4px 9px; border-radius: 3px;
+    border: 1px solid var(--border); color: var(--text-muted);
+  }
+  details{ margin-top: 4px; }
+  summary{
+    cursor: pointer; font-family: var(--font-mono); font-size: 12px;
+    color: var(--accent); list-style: none; user-select: none;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  summary::-webkit-details-marker{ display:none; }
+  summary::before{ content:"+"; font-size: 14px; }
+  details[open] summary::before{ content:"–"; }
+  details .role-bullets{ margin-top: 14px; }
+
+  /* ---------- Projects ---------- */
+  .edit-note{
+    font-family: var(--font-mono); font-size: 12px; color: var(--accent);
+    background: rgba(232,163,61,0.08); border: 1px dashed var(--accent-dim);
+    border-radius: 4px; padding: 10px 14px; margin-bottom: 32px; max-width: 680px;
+  }
+  .project-grid{
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 22px;
+  }
+  .project-card{
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 26px 26px 24px;
+    display:flex; flex-direction: column;
+    transition: border-color .15s, transform .15s;
+  }
+  .project-card:hover{ border-color: var(--accent-dim); transform: translateY(-2px); }
+  .project-index{
+    font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+  .project-title{
+    font-family: var(--font-display); font-size: 18px; font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .project-context{
+    font-family: var(--font-mono); font-size: 12px; color: var(--teal);
+    margin-bottom: 16px;
+  }
+  .project-field{ margin-bottom: 12px; }
+  .project-field:last-of-type{ margin-bottom: 16px; }
+  .project-field .f-label{
+    font-family: var(--font-mono); font-size: 10.5px; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 4px;
+  }
+  .project-field .f-value{ font-size: 14px; color: var(--text-muted); }
+  .project-card .tags{ margin-top: auto; }
+
+  /* ---------- Skills ---------- */
+  .skill-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 28px;
+  }
+  .skill-group{
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px 22px;
+  }
+  .skill-group h3{
+    font-family: var(--font-mono); font-size: 11.5px; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px;
+  }
+  .skill-group .tags .tag{ border-color: rgba(143,163,191,0.22); }
+
+  /* ---------- Education / certs / lang ---------- */
+  .grid-2{
+    display:grid; grid-template-columns: 1.2fr 1fr; gap: 40px;
+  }
+  .block-title{
+    font-family: var(--font-mono); font-size: 11.5px; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px;
+  }
+  .edu-item{ margin-bottom: 18px; }
+  .edu-item .name{ font-family: var(--font-display); font-size: 16px; font-weight: 600; }
+  .edu-item .meta{ font-family: var(--font-mono); font-size: 12.5px; color: var(--text-muted); margin-top: 3px; }
+  .cert-list{ list-style:none; display:grid; gap: 12px; }
+  .cert-list li{ font-size: 14px; color: var(--text-muted); padding-left: 16px; position: relative; }
+  .cert-list li::before{ content:"▪"; position:absolute; left:0; color: var(--accent); font-size: 10px; top:5px; }
+  .cert-list .cert-id{ font-family: var(--font-mono); font-size: 11.5px; color: var(--text-dim); display:block; }
+
+  /* ---------- Footer / contact ---------- */
+  footer{
+    padding: 70px 0 60px;
+    border-top: 1px solid var(--border);
+  }
+  .contact-cta h2{ max-width: 520px; }
+  .contact-grid{
+    margin-top: 32px;
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    gap: 18px;
+  }
+  .contact-card{
+    border: 1px solid var(--border); border-radius: 4px; padding: 18px 20px;
+    text-decoration: none; transition: border-color .15s, transform .15s;
+  }
+  .contact-card:hover{ border-color: var(--accent-dim); transform: translateY(-2px); }
+  .contact-card .label{
+    font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;
+  }
+  .contact-card .value{ font-family: var(--font-display); font-size: 15px; }
+  .foot-note{
+    margin-top: 50px; font-family: var(--font-mono); font-size: 11.5px; color: var(--text-dim);
+    display:flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  }
+
+  @media (max-width: 720px){
+    .grid-2{ grid-template-columns: 1fr; }
+    .topbar-links{ gap: 10px; }
+    .topbar-links a:nth-child(3),
+    .topbar-links a:nth-child(4){ display:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="id">JSPB<span>_</span>2026</div>
+    <div class="topbar-links">
+      <a href="#experiencia">Experiencia</a>
+      <a href="#habilidades">Habilidades</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#educacion">Educación</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="hero" style="border-top:none;">
+    <div class="eyebrow">Disponible para nuevos retos</div>
+    <h1>José Samuel<br>Puga Beltrán</h1>
+    <div class="role-line">Tech Lead <span class="sep">/</span> Líder técnico de proyectos <span class="sep">/</span> Software &amp; Digital Solutions</div>
+    <p class="pitch">
+      Más de 10 años liderando equipos y proyectos de software, desde arquitectura e integración de sistemas
+      hasta inteligencia de negocios y automatización de procesos, bajo metodologías ágiles.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="mailto:samuelpugab@hotmail.com">Escribir un correo</a>
+      <a class="btn btn-ghost" href="#experiencia">Ver experiencia ↓</a>
+    </div>
+  </section>
+
+  <section id="experiencia">
+    <div class="section-head">
+      <h2>Experiencia profesional</h2>
+      <div class="section-num">01 — trayectoria</div>
+    </div>
+
+    <div class="pipeline">
+
+      <div class="role current">
+        <div class="role-top">
+          <div class="role-title">Tech Lead</div>
+          <div class="role-dates">Feb 2025 — Actual</div>
+        </div>
+        <div class="role-company">Afore Coppel S.A. de C.V.</div>
+        <p class="role-desc">
+          Liderazgo técnico al equipo de desarrollo, transformando requerimientos funcionales y necesidades de
+          negocio en soluciones tecnológicas viables, mantenibles y alineadas con estándares de calidad y arquitectura.
+        </p>
+        <details>
+          <summary>Ver responsabilidades</summary>
+          <ul class="role-bullets">
+			<li>Arquitectura de Soluciones y Análisis de Impacto: Diseño y documento la arquitectura técnica y topología de sistemas, diagramando flujos e infraestructura (utilizando Mermaid.js y draw.io) para visualizar la afectación en servidores, definir el stack tecnológico y orquestar la creación de nuevos componentes.</li>
+			<li>Liderazgo Técnico y Adopción Ágil (Scrum): Lidero técnica y operativamente una célula de desarrollo, actuando como pilar en la transición de la empresa hacia la metodología Scrum. Resolviendo bloqueos técnicos diarios y garantizando el cumplimiento de los KPIs de entrega (velocidad y objetivos del sprint).</li>
+			<li>Alineación Negocio-Tecnología: Actúo como puente estratégico colaborando directamente con el Product Owner y el Scrum Master para refinar Historias de Usuario (HU), traduciendo necesidades comerciales en requerimientos técnicos viables y optimizando la estrategia de ataque del sprint.</li>
+			<li>Gestión de Talento y Continuidad Operativa: Mentoreo al equipo de ingeniería, supervisando su desarrollo profesional (capacitaciones) y calidad de código. Mantengo un perfil hands-on, desarrollando componentes críticos para asegurar la continuidad de las entregas ante contingencias o ausencias.</li>
+			<li>Gobierno de Infraestructura: Soy owner de dos servidores críticos asignados, garantizando su estabilidad, cumplimiento de normativas de las áreas operativas y generación de documentación técnica de alto nivel.</li>
+          </ul>
+        </details>
+        <div class="tags">
+          <span class="tag">Liderazgo técnico</span>
+          <span class="tag">Scrum</span>
+          <span class="tag">Code review</span>
+          <span class="tag">Arquitectura</span>
+        </div>
+      </div>
+
+      <div class="role">
+        <div class="role-top">
+          <div class="role-title">Coordinador de desarrollo</div>
+          <div class="role-dates">Mar 2019 — Feb 2025</div>
+        </div>
+        <div class="role-company">Grupo Impulsora</div>
+        <p class="role-desc">
+          Coordinación y liderazgo del equipo de desarrollo a lo largo del ciclo de vida de proyectos de software,
+          combinando gestión de equipo con desarrollo directo de soluciones empresariales.
+        </p>
+        <details>
+          <summary>Ver responsabilidades</summary>
+          <ul class="role-bullets">
+            <li>Transformación Digital y Liderazgo de IT: Lideré la modernización tecnológica de la empresa desde cero, fundando y escalando el departamento de desarrollo. Dirigí el reclutamiento, mentoring y gestión del equipo técnico, y evangelicé a las gerencias para migrar procesos críticos y aislados en Excel hacia un ecosistema web estandarizado.</li>
+			<li>Arquitectura de Sistemas & Integración Empresarial (SAP): Diseñé, tomé decisiones de stack (PHP/Laravel) y desarrollé un ecosistema omnicanal de cero, entregando una plataforma web central (con más de 100 módulos) y 3 aplicaciones móviles (React-Native) consumiendo una API REST propia. Todo integrado de forma segura y bidireccional al core de SAP Business One mediante DI API y consultas directas.</li>
+			<li>Ingeniería de Datos y Business Intelligence: Conceptualicé y construí la infraestructura de análisis de datos para la toma de decisiones directivas, diseñando un Data Warehouse alimentado por procesos ETL creados a la medida y visualizado a través de tableros dinámicos en QlikSense.</li>
+			<li>Implementación de Cultura Ágil (Scrum): Fui el catalizador principal para la adopción de la metodología Scrum en la organización, resolviendo problemas históricos de definición de alcance y tiempos de entrega. Capacité técnica y metodológicamente tanto al equipo de desarrollo como a los nuevos roles de gestión (Product Owners/Scrum Masters).</li>
+			<li>Gestión Operativa y Soporte Nivel 3: Mantuve el gobierno total sobre la arquitectura tecnológica, garantizando la alta disponibilidad de las aplicaciones y encabezando el diagnóstico y resolución de incidencias de código complejas escaladas por la mesa de ayuda.</li>
+          </ul>
+        </details>
+        <div class="tags">
+          <span class="tag">PHP / Laravel</span>
+          <span class="tag">React Native</span>
+          <span class="tag">Python</span>
+          <span class="tag">SAP B1</span>
+          <span class="tag">Qlik Sense</span>
+          <span class="tag">ETL</span>
+        </div>
+      </div>
+
+      <div class="role">
+        <div class="role-top">
+          <div class="role-title">Tester</div>
+          <div class="role-dates">Jun 2018 — Mar 2019</div>
+        </div>
+        <div class="role-company">Neoris</div>
+        <p class="role-desc">
+          Aseguramiento de calidad funcional mediante definición, ejecución y seguimiento de pruebas de software
+          para proyectos de organizaciones como Cemex, Oxxo y Banco Popular de República Dominicana.
+        </p>
+        <details>
+          <summary>Ver responsabilidades</summary>
+          <ul class="role-bullets">
+            <li>Aseguramiento de Calidad en Core Bancario (Banco Popular RD): Trabajé 6 meses de forma presencial validando una migración crítica del sistema core de créditos. Diseñé y ejecuté pruebas de integración y regresión en más de 30 sistemas para garantizar la continuidad operativa y mitigar riesgos de afectación tras la actualización del núcleo. </li>
+			<li>Despliegues Enterprise Internacionales (Oxxo & Cemex): Ejecuté los ciclos de pruebas funcionales para la implementación del sistema central de ventas durante la apertura de mercado de Oxxo en Perú. Adicionalmente, validé la integridad de un sistema de procesamiento y traducción de información corporativa para Cemex. </li>
+			<li>Ciclo de Vida de Pruebas (STLC): Fui responsable de la creación de planes y casos de prueba, ejecución exhaustiva de pruebas manuales sistemáticas y documentación de incidencias, asegurando que cada entrega cumpliera estrictamente con los requerimientos técnicos y de negocio. </li>
+          </ul>
+        </details>
+        <div class="tags">
+          <span class="tag">QA</span>
+          <span class="tag">Casos de prueba</span>
+          <span class="tag">Pruebas de usuario</span>
+        </div>
+      </div>
+
+      <div class="role">
+        <div class="role-top">
+          <div class="role-title">Programador de control de incidencias</div>
+          <div class="role-dates">Jun 2016 — Jun 2018</div>
+        </div>
+        <div class="role-company">Coppel</div>
+        <p class="role-desc">
+          Diagnóstico de causa raíz en aplicaciones, código fuente y bases de datos para incidencias de segundo nivel
+          reportadas por mesa de ayuda.
+        </p>
+        <details>
+          <summary>Ver responsabilidades</summary>
+          <ul class="role-bullets">
+            <li>Análisis de Causa Raíz en Producción (Troubleshooting): Gestioné el diagnóstico avanzado de incidencias críticas escaladas por la mesa de ayuda, identificando el origen de fallos a través de múltiples capas del sistema: problemas de conectividad, errores de despliegue, inconsistencias de bases de datos y fallos lógicos. </li>
+			<li>Ingeniería Inversa y Debugging: Analizaba y rastreaba flujos de ejecución en un promedio de 10 repositorios/sistemas distintos diariamente, procesando y diagnosticando alrededor de 8 incidencias de alta prioridad al día para su corrección precisa. </li>
+			<li>Integridad de Datos y Sistemas: Evaluaba el impacto de transacciones fallidas, actualizaciones de base de datos incorrectas (SQL Server, PostgreSQL) y errores de notas de producción, documentando los hallazgos detalladamente para el equipo de desarrollo y evitando la reincidencia de los errores.</li>
+          </ul>
+        </details>
+        <div class="tags">
+          <span class="tag">C# / C++</span>
+          <span class="tag">SQL Server</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Diagnóstico</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="habilidades">
+    <div class="section-head">
+      <h2>Habilidades técnicas</h2>
+      <div class="section-num">02 — stack</div>
+    </div>
+    <div class="skill-grid">
+      <div class="skill-group">
+        <h3>Lenguajes &amp; frameworks</h3>
+        <div class="tags">
+          <span class="tag">PHP (Laravel)</span>
+          <span class="tag">Python</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">React Native</span>
+          <span class="tag">HTML5 / CSS3</span>
+          <span class="tag">C#</span>
+          <span class="tag">C++</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Datos &amp; plataformas</h3>
+        <div class="tags">
+          <span class="tag">SQL Server</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Qlik Sense</span>
+          <span class="tag">SAP Business One</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Prácticas &amp; herramientas</h3>
+        <div class="tags">
+          <span class="tag">Scrum</span>
+          <span class="tag">GitHub</span>
+          <span class="tag">Code review</span>
+          <span class="tag">APIs REST</span>
+          <span class="tag">ETL</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="proyectos">
+    <div class="section-head">
+      <h2>Proyectos destacados</h2>
+      <div class="section-num">03 — casos de estudio</div>
+    </div>
+
+    <!-- <p class="edit-note">
+      ✎ Estos 4 proyectos son un borrador basado en tu stack técnico — reemplaza el título, contexto,
+      objetivo, solución y tags con los datos reales de tus proyectos.
+    </p> -->
+
+    <div class="project-grid">
+
+      <div class="project-card">
+        <div class="project-index">PROYECTO 01</div>
+        <div class="project-title">Integración con SAP Business One</div>
+        <div class="project-context">Grupo Impulsora</div>
+        <div class="project-field">
+          <div class="f-label">Objetivo</div>
+          <div class="f-value">Eliminar la captura duplicada de información entre el ERP y las aplicaciones internas del negocio.</div>
+        </div>
+        <div class="project-field">
+          <div class="f-label">Lo realizado</div>
+          <div class="f-value">Diseño e implementación de integraciones mediante el SDK DI API de SAP Business One, sincronizando datos entre sistemas en tiempo real.</div>
+        </div>
+        <div class="tags">
+          <span class="tag">SAP B1</span>
+          <span class="tag">SDK DI API</span>
+          <span class="tag">Integración</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-index">PROYECTO 02</div>
+        <div class="project-title">Tableros de inteligencia de negocios</div>
+        <div class="project-context">Grupo Impulsora</div>
+        <div class="project-field">
+          <div class="f-label">Objetivo</div>
+          <div class="f-value">Dar visibilidad a indicadores clave del negocio para agilizar la toma de decisiones.</div>
+        </div>
+        <div class="project-field">
+          <div class="f-label">Lo realizado</div>
+          <div class="f-value">Diseño de procesos ETL para extracción y transformación de datos, y construcción de tableros interactivos en Qlik Sense.</div>
+        </div>
+        <div class="tags">
+          <span class="tag">Qlik Sense</span>
+          <span class="tag">ETL</span>
+          <span class="tag">BI</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-index">PROYECTO 03</div>
+        <div class="project-title">Aplicación móvil con React Native</div>
+        <div class="project-context">Grupo Impulsora</div>
+        <div class="project-field">
+          <div class="f-label">Objetivo</div>
+          <div class="f-value">Extender una solución empresarial clave a dispositivos móviles para el equipo de campo.</div>
+        </div>
+        <div class="project-field">
+          <div class="f-label">Lo realizado</div>
+          <div class="f-value">Desarrollo de la app con React Native, consumiendo APIs REST propias construidas en Laravel.</div>
+        </div>
+        <div class="tags">
+          <span class="tag">React Native</span>
+          <span class="tag">Laravel</span>
+          <span class="tag">APIs REST</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-index">PROYECTO 04</div>
+        <div class="project-title">Automatización de procesos</div>
+        <div class="project-context">Afore Coppel</div>
+        <div class="project-field">
+          <div class="f-label">Objetivo</div>
+          <div class="f-value">Reducir el tiempo dedicado a tareas manuales de análisis y generación de reportes.</div>
+        </div>
+        <div class="project-field">
+          <div class="f-label">Lo realizado</div>
+          <div class="f-value">Definición y validación de scripts en Python para automatizar procesos de negocio, con revisión técnica vía code review.</div>
+        </div>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">Automatización</span>
+          <span class="tag">Code review</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="educacion">
+    <div class="section-head">
+      <h2>Educación &amp; formación</h2>
+      <div class="section-num">04 — trayectoria académica</div>
+    </div>
+    <div class="grid-2">
+      <div>
+        <div class="block-title">Educación</div>
+        <div class="edu-item">
+          <div class="name">Licenciatura en Informática</div>
+          <div class="meta">Universidad Autónoma de Sinaloa — 2012 / 2017</div>
+        </div>
+        <div class="block-title" style="margin-top:28px;">Idiomas</div>
+        <div class="tags"><span class="tag">Inglés — B1</span></div>
+      </div>
+      <div>
+        <div class="block-title">Certificaciones &amp; formación complementaria</div>
+        <ul class="cert-list">
+          <li>Business Intelligence Foundation Professional Certification (BIFPC)
+            <span class="cert-id">CertiProf 2024 — 90980663</span>
+          </li>
+          <li>Scrum Foundation Professional Certification (SFPC)
+            <span class="cert-id">CertiProf 2024 — 90977799</span>
+          </li>
+          <li>Generative AI Leader
+            <span class="cert-id">Google Skills</span>
+          </li>
+          <li>Constancia de habilidades gerenciales</li>
+          <li>Constancia de competencias — mandos medios</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contacto">
+    <div class="contact-cta">
+      <div class="section-num" style="margin-bottom:14px;">05 — contacto</div>
+      <h2>Ponte en contacto conmigo</h2>
+      <p class="pitch">Escríbeme, con gusto conversamos sobre el proyecto.</p>
+    </div>
+    <div class="contact-grid">
+      <a class="contact-card" href="mailto:samuelpugab@hotmail.com">
+        <div class="label">Correo</div>
+        <div class="value">samuelpugab@hotmail.com</div>
+      </a>
+      <a class="contact-card" href="tel:+526672921255">
+        <div class="label">Teléfono</div>
+        <div class="value">(66) 72‑92‑12‑55</div>
+      </a>
+      <a class="contact-card" href="https://samuelpuga.wordpress.com" target="_blank" rel="noopener">
+        <div class="label">Blog</div>
+        <div class="value">samuelpuga.wordpress.com</div>
+      </a>
+      <div class="contact-card" style="cursor:default;">
+        <div class="label">Ubicación</div>
+        <div class="value">Culiacán, Sinaloa, MX</div>
+      </div>
+    </div>
+    <div class="foot-note">
+      <span>José Samuel Puga Beltrán</span>
+      <span>samuelpuga.com</span>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
