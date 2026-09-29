@@ -22,7 +22,8 @@
     --border: rgba(143,163,191,0.16);
     --text: #e9edf3;
     --text-muted: #8fa3bf;
-    --text-dim: #5d7290;
+    /* MEJORA 1: Contraste incrementado para WCAG AA (antes #5d7290) */
+    --text-dim: #7d93b3; 
     --accent: #e8a33d;
     --accent-dim: rgba(232,163,61,0.35);
     --teal: #4fd1c5;
@@ -66,12 +67,15 @@
     display:flex; align-items:center; justify-content: space-between;
     font-family: var(--font-mono); font-size: 12.5px; color: var(--text-muted);
   }
-  .topbar-inner .id{ color: var(--text); letter-spacing: 0.02em; }
+  .topbar-inner .id{ color: var(--text); letter-spacing: 0.02em; flex-shrink: 0; }
   .topbar-inner .id span{ color: var(--accent); }
   .topbar-links{ display:flex; gap:20px; }
   .topbar-links a{ text-decoration:none; color: var(--text-muted); transition: color .15s; }
-  .topbar-links a:hover{ color: var(--accent); }
-  .topbar-links a:focus-visible{ outline: 1px solid var(--accent); outline-offset: 3px; }
+  .topbar-links a:hover, 
+  .topbar-links a.active { color: var(--accent); } /* Estado activo agregado */
+  
+  /* MEJORA 5: Grosor de focus a 2px para mejor accesibilidad de teclado */
+  .topbar-links a:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
 
   /* ---------- Hero ---------- */
   .hero{
@@ -143,7 +147,9 @@
     border: 1px solid var(--border); color: var(--text-muted);
   }
   .btn-ghost:hover{ border-color: var(--accent-dim); color: var(--text); }
-  .btn:focus-visible{ outline: 1px solid var(--accent); outline-offset: 3px; }
+  
+  /* MEJORA 5: Grosor de focus a 2px */
+  .btn:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
 
   /* ---------- Section shell ---------- */
   section{ padding: 64px 0; border-top: 1px solid var(--border); }
@@ -216,15 +222,23 @@
     border: 1px solid var(--border); color: var(--text-muted);
   }
   details{ margin-top: 4px; }
+  
+  /* MEJORA 3: Área de toque extendida a ~44px para móviles (Padding agregado) */
   summary{
     cursor: pointer; font-family: var(--font-mono); font-size: 12px;
     color: var(--accent); list-style: none; user-select: none;
     display:inline-flex; align-items:center; gap:6px;
+    padding: 12px 10px;
+    margin-left: -10px; /* Compensa visualmente el padding */
+    border-radius: 4px;
+    transition: background 0.2s;
   }
+  summary:hover { background: rgba(232,163,61,0.05); }
+  summary:focus-visible { outline: 2px solid var(--accent); }
   summary::-webkit-details-marker{ display:none; }
   summary::before{ content:"+"; font-size: 14px; }
   details[open] summary::before{ content:"–"; }
-  details .role-bullets{ margin-top: 14px; }
+  details .role-bullets{ margin-top: 4px; }
 
   /* ---------- Projects ---------- */
   .edit-note{
@@ -236,15 +250,20 @@
     display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 22px;
   }
+  
+  /* MEJORA 4: Se asegura que el project-card se comporte bien como etiqueta <a> */
   .project-card{
     background: var(--bg-panel);
     border: 1px solid var(--border);
     border-radius: 4px;
     padding: 26px 26px 24px;
     display:flex; flex-direction: column;
+    text-decoration: none; /* Previene subrayado en el enlace completo */
+    color: inherit;
     transition: border-color .15s, transform .15s;
   }
   .project-card:hover{ border-color: var(--accent-dim); transform: translateY(-2px); }
+  .project-card:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
   .project-index{
     font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
     margin-bottom: 10px;
@@ -314,8 +333,10 @@
   .contact-card{
     border: 1px solid var(--border); border-radius: 4px; padding: 18px 20px;
     text-decoration: none; transition: border-color .15s, transform .15s;
+    display: block;
   }
   .contact-card:hover{ border-color: var(--accent-dim); transform: translateY(-2px); }
+  .contact-card:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
   .contact-card .label{
     font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
     text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;
@@ -326,11 +347,20 @@
     display:flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
   }
 
+  /* MEJORA 2: Se habilita scroll horizontal en móviles (en lugar de ocultar enlaces) */
   @media (max-width: 720px){
     .grid-2{ grid-template-columns: 1fr; }
-    .topbar-links{ gap: 10px; }
-    .topbar-links a:nth-child(3),
-    .topbar-links a:nth-child(4){ display:none; }
+    
+    .topbar-links{
+      gap: 16px;
+      overflow-x: auto;
+      white-space: nowrap; /* Evita que los enlaces salten de línea */
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
+    /* Oculta la barra de desplazamiento estética pero mantiene la funcionalidad */
+    .topbar-links::-webkit-scrollbar { display: none; }
+    .topbar-links { -ms-overflow-style: none; scrollbar-width: none; }
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -355,7 +385,7 @@
 
 <div class="wrap">
 
-  <section class="hero" style="border-top:none;">
+  <section class="hero" id="inicio" style="border-top:none;">
     <div class="eyebrow">Disponible para nuevos retos</div>
     <h1>José Samuel<br>Puga Beltrán</h1>
     <div class="role-line">Tech Lead <span class="sep">/</span> Líder técnico de proyectos <span class="sep">/</span> Software &amp; Digital Solutions</div>
@@ -390,11 +420,11 @@
         <details>
           <summary>Ver responsabilidades</summary>
           <ul class="role-bullets">
-			<li>Arquitectura de Soluciones y Análisis de Impacto: Diseño y documento la arquitectura técnica y topología de sistemas, diagramando flujos e infraestructura (utilizando Mermaid.js y draw.io) para visualizar la afectación en servidores, definir el stack tecnológico y orquestar la creación de nuevos componentes.</li>
-			<li>Liderazgo Técnico y Adopción Ágil (Scrum): Lidero técnica y operativamente una célula de desarrollo, actuando como pilar en la transición de la empresa hacia la metodología Scrum. Resolviendo bloqueos técnicos diarios y garantizando el cumplimiento de los KPIs de entrega (velocidad y objetivos del sprint).</li>
-			<li>Alineación Negocio-Tecnología: Actúo como puente estratégico colaborando directamente con el Product Owner y el Scrum Master para refinar Historias de Usuario (HU), traduciendo necesidades comerciales en requerimientos técnicos viables y optimizando la estrategia de ataque del sprint.</li>
-			<li>Gestión de Talento y Continuidad Operativa: Mentoreo al equipo de ingeniería, supervisando su desarrollo profesional (capacitaciones) y calidad de código. Mantengo un perfil hands-on, desarrollando componentes críticos para asegurar la continuidad de las entregas ante contingencias o ausencias.</li>
-			<li>Gobierno de Infraestructura: Soy owner de dos servidores críticos asignados, garantizando su estabilidad, cumplimiento de normativas de las áreas operativas y generación de documentación técnica de alto nivel.</li>
+            <li>Arquitectura de Soluciones y Análisis de Impacto: Diseño y documento la arquitectura técnica y topología de sistemas, diagramando flujos e infraestructura (utilizando Mermaid.js y draw.io) para visualizar la afectación en servidores, definir el stack tecnológico y orquestar la creación de nuevos componentes.</li>
+            <li>Liderazgo Técnico y Adopción Ágil (Scrum): Lidero técnica y operativamente una célula de desarrollo, actuando como pilar en la transición de la empresa hacia la metodología Scrum. Resolviendo bloqueos técnicos diarios y garantizando el cumplimiento de los KPIs de entrega (velocidad y objetivos del sprint).</li>
+            <li>Alineación Negocio-Tecnología: Actúo como puente estratégico colaborando directamente con el Product Owner y el Scrum Master para refinar Historias de Usuario (HU), traduciendo necesidades comerciales en requerimientos técnicos viables y optimizando la estrategia de ataque del sprint.</li>
+            <li>Gestión de Talento y Continuidad Operativa: Mentoreo al equipo de ingeniería, supervisando su desarrollo profesional (capacitaciones) y calidad de código. Mantengo un perfil hands-on, desarrollando componentes críticos para asegurar la continuidad de las entregas ante contingencias o ausencias.</li>
+            <li>Gobierno de Infraestructura: Soy owner de dos servidores críticos asignados, garantizando su estabilidad, cumplimiento de normativas de las áreas operativas y generación de documentación técnica de alto nivel.</li>
           </ul>
         </details>
         <div class="tags">
@@ -419,10 +449,10 @@
           <summary>Ver responsabilidades</summary>
           <ul class="role-bullets">
             <li>Transformación Digital y Liderazgo de IT: Lideré la modernización tecnológica de la empresa desde cero, fundando y escalando el departamento de desarrollo. Dirigí el reclutamiento, mentoring y gestión del equipo técnico, y evangelicé a las gerencias para migrar procesos críticos y aislados en Excel hacia un ecosistema web estandarizado.</li>
-			<li>Arquitectura de Sistemas & Integración Empresarial (SAP): Diseñé, tomé decisiones de stack (PHP/Laravel) y desarrollé un ecosistema omnicanal de cero, entregando una plataforma web central (con más de 100 módulos) y 3 aplicaciones móviles (React-Native) consumiendo una API REST propia. Todo integrado de forma segura y bidireccional al core de SAP Business One mediante DI API y consultas directas.</li>
-			<li>Ingeniería de Datos y Business Intelligence: Conceptualicé y construí la infraestructura de análisis de datos para la toma de decisiones directivas, diseñando un Data Warehouse alimentado por procesos ETL creados a la medida y visualizado a través de tableros dinámicos en QlikSense.</li>
-			<li>Implementación de Cultura Ágil (Scrum): Fui el catalizador principal para la adopción de la metodología Scrum en la organización, resolviendo problemas históricos de definición de alcance y tiempos de entrega. Capacité técnica y metodológicamente tanto al equipo de desarrollo como a los nuevos roles de gestión (Product Owners/Scrum Masters).</li>
-			<li>Gestión Operativa y Soporte Nivel 3: Mantuve el gobierno total sobre la arquitectura tecnológica, garantizando la alta disponibilidad de las aplicaciones y encabezando el diagnóstico y resolución de incidencias de código complejas escaladas por la mesa de ayuda.</li>
+            <li>Arquitectura de Sistemas & Integración Empresarial (SAP): Diseñé, tomé decisiones de stack (PHP/Laravel) y desarrollé un ecosistema omnicanal de cero, entregando una plataforma web central (con más de 100 módulos) y 3 aplicaciones móviles (React-Native) consumiendo una API REST propia. Todo integrado de forma segura y bidireccional al core de SAP Business One mediante DI API y consultas directas.</li>
+            <li>Ingeniería de Datos y Business Intelligence: Conceptualicé y construí la infraestructura de análisis de datos para la toma de decisiones directivas, diseñando un Data Warehouse alimentado por procesos ETL creados a la medida y visualizado a través de tableros dinámicos en QlikSense.</li>
+            <li>Implementación de Cultura Ágil (Scrum): Fui el catalizador principal para la adopción de la metodología Scrum en la organización, resolviendo problemas históricos de definición de alcance y tiempos de entrega. Capacité técnica y metodológicamente tanto al equipo de desarrollo como a los nuevos roles de gestión (Product Owners/Scrum Masters).</li>
+            <li>Gestión Operativa y Soporte Nivel 3: Mantuve el gobierno total sobre la arquitectura tecnológica, garantizando la alta disponibilidad de las aplicaciones y encabezando el diagnóstico y resolución de incidencias de código complejas escaladas por la mesa de ayuda.</li>
           </ul>
         </details>
         <div class="tags">
@@ -449,8 +479,8 @@
           <summary>Ver responsabilidades</summary>
           <ul class="role-bullets">
             <li>Aseguramiento de Calidad en Core Bancario (Banco Popular RD): Trabajé 6 meses de forma presencial validando una migración crítica del sistema core de créditos. Diseñé y ejecuté pruebas de integración y regresión en más de 30 sistemas para garantizar la continuidad operativa y mitigar riesgos de afectación tras la actualización del núcleo. </li>
-			<li>Despliegues Enterprise Internacionales (Oxxo & Cemex): Ejecuté los ciclos de pruebas funcionales para la implementación del sistema central de ventas durante la apertura de mercado de Oxxo en Perú. Adicionalmente, validé la integridad de un sistema de procesamiento y traducción de información corporativa para Cemex. </li>
-			<li>Ciclo de Vida de Pruebas (STLC): Fui responsable de la creación de planes y casos de prueba, ejecución exhaustiva de pruebas manuales sistemáticas y documentación de incidencias, asegurando que cada entrega cumpliera estrictamente con los requerimientos técnicos y de negocio. </li>
+            <li>Despliegues Enterprise Internacionales (Oxxo & Cemex): Ejecuté los ciclos de pruebas funcionales para la implementación del sistema central de ventas durante la apertura de mercado de Oxxo en Perú. Adicionalmente, validé la integridad de un sistema de procesamiento y traducción de información corporativa para Cemex. </li>
+            <li>Ciclo de Vida de Pruebas (STLC): Fui responsable de la creación de planes y casos de prueba, ejecución exhaustiva de pruebas manuales sistemáticas y documentación de incidencias, asegurando que cada entrega cumpliera estrictamente con los requerimientos técnicos y de negocio. </li>
           </ul>
         </details>
         <div class="tags">
@@ -474,8 +504,8 @@
           <summary>Ver responsabilidades</summary>
           <ul class="role-bullets">
             <li>Análisis de Causa Raíz en Producción (Troubleshooting): Gestioné el diagnóstico avanzado de incidencias críticas escaladas por la mesa de ayuda, identificando el origen de fallos a través de múltiples capas del sistema: problemas de conectividad, errores de despliegue, inconsistencias de bases de datos y fallos lógicos. </li>
-			<li>Ingeniería Inversa y Debugging: Analizaba y rastreaba flujos de ejecución en un promedio de 10 repositorios/sistemas distintos diariamente, procesando y diagnosticando alrededor de 8 incidencias de alta prioridad al día para su corrección precisa. </li>
-			<li>Integridad de Datos y Sistemas: Evaluaba el impacto de transacciones fallidas, actualizaciones de base de datos incorrectas (SQL Server, PostgreSQL) y errores de notas de producción, documentando los hallazgos detalladamente para el equipo de desarrollo y evitando la reincidencia de los errores.</li>
+            <li>Ingeniería Inversa y Debugging: Analizaba y rastreaba flujos de ejecución en un promedio de 10 repositorios/sistemas distintos diariamente, procesando y diagnosticando alrededor de 8 incidencias de alta prioridad al día para su corrección precisa. </li>
+            <li>Integridad de Datos y Sistemas: Evaluaba el impacto de transacciones fallidas, actualizaciones de base de datos incorrectas (SQL Server, PostgreSQL) y errores de notas de producción, documentando los hallazgos detalladamente para el equipo de desarrollo y evitando la reincidencia de los errores.</li>
           </ul>
         </details>
         <div class="tags">
@@ -535,14 +565,10 @@
       <div class="section-num">03 — casos de estudio</div>
     </div>
 
-    <!-- <p class="edit-note">
-      ✎ Estos 4 proyectos son un borrador basado en tu stack técnico — reemplaza el título, contexto,
-      objetivo, solución y tags con los datos reales de tus proyectos.
-    </p> -->
-
     <div class="project-grid">
-
-      <div class="project-card">
+      
+      <!-- MEJORA 4: Los project-card ahora son enlaces reales (<a> en lugar de <div>) -->
+      <a href="#" class="project-card">
         <div class="project-index">PROYECTO 01</div>
         <div class="project-title">Integración con SAP Business One</div>
         <div class="project-context">Grupo Impulsora</div>
@@ -559,9 +585,9 @@
           <span class="tag">SDK DI API</span>
           <span class="tag">Integración</span>
         </div>
-      </div>
+      </a>
 
-      <div class="project-card">
+      <a href="#" class="project-card">
         <div class="project-index">PROYECTO 02</div>
         <div class="project-title">Tableros de inteligencia de negocios</div>
         <div class="project-context">Grupo Impulsora</div>
@@ -578,9 +604,9 @@
           <span class="tag">ETL</span>
           <span class="tag">BI</span>
         </div>
-      </div>
+      </a>
 
-      <div class="project-card">
+      <a href="#" class="project-card">
         <div class="project-index">PROYECTO 03</div>
         <div class="project-title">Aplicación móvil con React Native</div>
         <div class="project-context">Grupo Impulsora</div>
@@ -597,9 +623,9 @@
           <span class="tag">Laravel</span>
           <span class="tag">APIs REST</span>
         </div>
-      </div>
+      </a>
 
-      <div class="project-card">
+      <a href="#" class="project-card">
         <div class="project-index">PROYECTO 04</div>
         <div class="project-title">Automatización de procesos</div>
         <div class="project-context">Afore Coppel</div>
@@ -616,7 +642,7 @@
           <span class="tag">Automatización</span>
           <span class="tag">Code review</span>
         </div>
-      </div>
+      </a>
 
     </div>
   </section>
@@ -686,5 +712,33 @@
   </footer>
 
 </div>
+
+<!-- MEJORA 6: Script para resaltar el enlace del menú según la sección visible (ScrollSpy) -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const sections = document.querySelectorAll("section, footer");
+    const navLinks = document.querySelectorAll(".topbar-links a");
+
+    window.addEventListener("scroll", () => {
+      let current = "";
+      
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        // Ajuste el threshold (150px) según cuando quieres que cambie de estado
+        if (scrollY >= sectionTop - 150) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navLinks.forEach((link) => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === `#${current}`) {
+          link.classList.add("active");
+        }
+      });
+    });
+  });
+</script>
+
 </body>
 </html>
