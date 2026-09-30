@@ -1,711 +1,429 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>José Samuel Puga Beltrán — Tech Lead</title>
-<!-- Metadatos Open Graph para redes sociales -->
-<meta property="og:title" content="José Samuel Puga Beltrán — Tech Lead">
-<meta property="og:description" content="Más de 10 años liderando equipos y proyectos de software, arquitectura de sistemas y automatización.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://samuelpuga.com/">
 <meta name="description" content="José Samuel Puga Beltrán — Tech Lead. Liderazgo técnico, integración de sistemas y desarrollo de software.">
+
+<!-- Fuentes de Google -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- BOOTSTRAP 5.3 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <style>
-  :root{
-    --bg: #0d1826;
+  /* 
+   * 1. SOBREESCRITURA DE VARIABLES BOOTSTRAP Y TEMA PERSONALIZADO 
+   */
+  :root {
+    --bs-body-bg: #0d1826;
+    --bs-body-color: #e9edf3;
+    --bs-primary: #e8a33d;
+    --bs-primary-rgb: 232,163,61;
+    --bs-info: #4fd1c5;
+    
     --bg-panel: #122238;
-    --bg-panel-2: #0f1e32;
+    --border-color: rgba(143,163,191,0.16);
     --grid-line: rgba(143,163,191,0.09);
-    --border: rgba(143,163,191,0.16);
-    --text: #e9edf3;
     --text-muted: #8fa3bf;
-    /* MEJORA 1: Contraste incrementado para WCAG AA (antes #5d7290) */
-    --text-dim: #7d93b3; 
-    --accent: #e8a33d;
-    --accent-dim: rgba(232,163,61,0.35);
-    --teal: #4fd1c5;
+    --text-dim: #7d93b3; /* Contraste WCAG AA mantenido */
+    
     --font-display: 'Space Grotesk', sans-serif;
-    --font-body: 'Inter', sans-serif;
     --font-mono: 'IBM Plex Mono', monospace;
+    --bs-body-font-family: 'Inter', sans-serif;
   }
 
-  *{ box-sizing: border-box; margin:0; padding:0; }
-
-  html{ scroll-behavior: smooth; }
-
-  body{
-    background:
-      linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0/48px 48px,
-      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0/48px 48px,
-      var(--bg);
-    color: var(--text);
-    font-family: var(--font-body);
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
+  body {
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: 0 0;
   }
 
-  a{ color: inherit; }
+  /* Tipografías específicas */
+  h1, h2, .font-display { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.01em; }
+  .font-mono { font-family: var(--font-mono); }
+  .text-dim { color: var(--text-dim); }
+  .text-teal { color: var(--bs-info); }
 
-  .wrap{
-    max-width: 980px;
-    margin: 0 auto;
-    padding: 0 28px;
-  }
-
-  /* ---------- Top bar ---------- */
-  .topbar{
-    position: sticky; top:0; z-index: 20;
+  /* 
+   * 2. COMPONENTES PERSONALIZADOS (Lo que Bootstrap no tiene por defecto)
+   */
+  
+  /* Navbar con efecto Glassmorphism */
+  .navbar-glass {
     background: rgba(13,24,38,0.86);
     backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--border-color);
   }
-  .topbar-inner{
-    max-width: 980px; margin:0 auto; padding: 14px 28px;
-    display:flex; align-items:center; justify-content: space-between;
-    font-family: var(--font-mono); font-size: 12.5px; color: var(--text-muted);
-  }
-  .topbar-inner .id{ color: var(--text); letter-spacing: 0.02em; flex-shrink: 0; }
-  .topbar-inner .id span{ color: var(--accent); }
-  .topbar-links{ display:flex; gap:20px; }
-  .topbar-links a{ text-decoration:none; color: var(--text-muted); transition: color .15s; }
-  .topbar-links a:hover, 
-  .topbar-links a.active { color: var(--accent); } /* Estado activo agregado */
-  
-  /* MEJORA 5: Grosor de focus a 2px para mejor accesibilidad de teclado */
-  .topbar-links a:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
 
-  /* ---------- Hero ---------- */
-  .hero{
-    padding: 92px 0 70px;
+  /* Timeline vertical (Experiencia) */
+  .pipeline {
     position: relative;
-    overflow: hidden;
+    padding-left: 1.5rem;
   }
-  .hero::before{
-    content:"";
-    position:absolute; right: -120px; top: -80px;
-    width: 420px; height: 420px;
-    border: 1px solid var(--border);
-    border-radius: 50%;
+  .pipeline::before {
+    content: "";
+    position: absolute; left: 5px; top: 8px; bottom: 8px; width: 1px;
+    background: repeating-linear-gradient(to bottom, rgba(var(--bs-primary-rgb), 0.35) 0 6px, transparent 6px 12px);
   }
-  .hero::after{
-    content:"";
-    position:absolute; right: -40px; top: 0;
-    width: 300px; height: 300px;
-    border: 1px solid var(--grid-line);
-    border-radius: 50%;
-  }
-  .eyebrow{
-    font-family: var(--font-mono); font-size: 12.5px; color: var(--accent);
-    letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 22px;
-    display:flex; align-items:center; gap: 10px;
-  }
-  .eyebrow::before{
-    content:""; width: 7px; height:7px; background: var(--accent); border-radius: 50%;
-    box-shadow: 0 0 0 4px var(--accent-dim);
-  }
-  h1{
-    font-family: var(--font-display); font-weight: 700;
-    font-size: clamp(38px, 6vw, 64px);
-    letter-spacing: -0.01em;
-    line-height: 1.04;
-    max-width: 780px;
-  }
-  .role-line{
-    margin-top: 18px;
-    font-family: var(--font-mono);
-    font-size: 15px;
-    color: var(--teal);
-    letter-spacing: 0.01em;
-  }
-  .role-line .sep{ color: var(--text-dim); margin: 0 8px; }
-  .pitch{
-    margin-top: 26px;
-    max-width: 620px;
-    color: var(--text-muted);
-    font-size: 16.5px;
-  }
-  .hero-cta{
-    margin-top: 38px;
-    display:flex; gap: 14px; flex-wrap: wrap;
-  }
-  .btn{
-    font-family: var(--font-mono); font-size: 13px;
-    padding: 12px 22px;
-    border-radius: 3px;
-    text-decoration: none;
-    display:inline-flex; align-items:center; gap:8px;
-    transition: all .15s ease;
-  }
-  .btn-primary{
-    background: var(--accent); color: #14202f; font-weight: 600;
-  }
-  .btn-primary:hover{ background: #f3b458; transform: translateY(-1px); }
-  .btn-ghost{
-    border: 1px solid var(--border); color: var(--text-muted);
-  }
-  .btn-ghost:hover{ border-color: var(--accent-dim); color: var(--text); }
-  
-  /* MEJORA 5: Grosor de focus a 2px */
-  .btn:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
-
-  /* ---------- Section shell ---------- */
-  section{ padding: 64px 0; border-top: 1px solid var(--border); }
-  .section-head{
-    display:flex; align-items: baseline; justify-content: space-between;
-    margin-bottom: 40px; gap: 20px; flex-wrap: wrap;
-  }
-  .section-num{
-    font-family: var(--font-mono); font-size: 12px; color: var(--text-dim);
-  }
-  h2{
-    font-family: var(--font-display); font-size: 26px; font-weight: 600;
-    letter-spacing: -0.005em;
-  }
-
-  /* ---------- Timeline / pipeline ---------- */
-  .pipeline{ position: relative; }
-  .pipeline::before{
-    content:"";
-    position:absolute; left: 5px; top: 8px; bottom: 8px;
-    width: 1px;
-    background: repeating-linear-gradient(
-      to bottom, var(--accent-dim) 0 6px, transparent 6px 12px
-    );
-  }
-  .role{
+  .role {
     position: relative;
-    padding: 0 0 46px 42px;
+    padding-bottom: 2.5rem;
   }
-  .role:last-child{ padding-bottom: 0; }
-  .role::before{
-    content:"";
-    position:absolute; left: 0; top: 4px;
-    width: 11px; height: 11px;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 2px solid var(--accent);
+  .role::before {
+    content: "";
+    position: absolute; left: -1.5rem; top: 4px;
+    width: 11px; height: 11px; border-radius: 50%;
+    background: var(--bs-body-bg); border: 2px solid var(--bs-primary);
   }
-  .role.current::before{
-    box-shadow: 0 0 0 5px var(--accent-dim);
+  .role.current::before {
+    box-shadow: 0 0 0 5px rgba(var(--bs-primary-rgb), 0.35);
   }
-  .role-top{
-    display:flex; align-items:baseline; justify-content: space-between;
-    flex-wrap: wrap; gap: 8px 20px;
-    margin-bottom: 6px;
+
+  /* Tarjetas base */
+  .custom-card {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s, border-color 0.2s;
   }
-  .role-title{
-    font-family: var(--font-display); font-size: 19px; font-weight: 600;
+  a.custom-card:hover, a.contact-card:hover {
+    border-color: rgba(var(--bs-primary-rgb), 0.5);
+    transform: translateY(-3px);
   }
-  .role-dates{
-    font-family: var(--font-mono); font-size: 12px; color: var(--text-dim);
-    white-space: nowrap;
-  }
-  .role-company{
-    font-family: var(--font-mono); font-size: 13px; color: var(--teal);
-    margin-bottom: 12px;
-  }
-  .role-desc{ color: var(--text-muted); font-size: 15px; margin-bottom: 14px; max-width: 680px; }
-  .role-bullets{ list-style:none; display:grid; gap:7px; margin-bottom: 16px; }
-  .role-bullets li{
-    font-size: 14px; color: var(--text); padding-left: 16px; position: relative;
-  }
-  .role-bullets li::before{
-    content:"–"; position:absolute; left:0; color: var(--text-dim);
-  }
-  .tags{ display:flex; flex-wrap: wrap; gap: 7px; }
-  .tag{
-    font-family: var(--font-mono); font-size: 11.5px;
-    padding: 4px 9px; border-radius: 3px;
-    border: 1px solid var(--border); color: var(--text-muted);
-  }
-  details{ margin-top: 4px; }
-  
-  /* MEJORA 3: Área de toque extendida a ~44px para móviles (Padding agregado) */
-  summary{
-    cursor: pointer; font-family: var(--font-mono); font-size: 12px;
-    color: var(--accent); list-style: none; user-select: none;
-    display:inline-flex; align-items:center; gap:6px;
-    padding: 12px 10px;
-    margin-left: -10px; /* Compensa visualmente el padding */
+  a.custom-card { text-decoration: none; color: inherit; }
+
+  /* Detalles/Acordeón accesible */
+  summary {
+    cursor: pointer;
     border-radius: 4px;
     transition: background 0.2s;
   }
-  summary:hover { background: rgba(232,163,61,0.05); }
-  summary:focus-visible { outline: 2px solid var(--accent); }
-  summary::-webkit-details-marker{ display:none; }
-  summary::before{ content:"+"; font-size: 14px; }
-  details[open] summary::before{ content:"–"; }
-  details .role-bullets{ margin-top: 4px; }
+  summary:hover { background: rgba(var(--bs-primary-rgb), 0.05); }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "+ "; font-weight: bold; }
+  details[open] summary::before { content: "– "; }
 
-  /* ---------- Projects ---------- */
-  .edit-note{
-    font-family: var(--font-mono); font-size: 12px; color: var(--accent);
-    background: rgba(232,163,61,0.08); border: 1px dashed var(--accent-dim);
-    border-radius: 4px; padding: 10px 14px; margin-bottom: 32px; max-width: 680px;
+  /* Hero Decoraciones */
+  .hero-wrapper { position: relative; overflow: hidden; }
+  .hero-circle-1 {
+    position: absolute; right: -120px; top: -80px; width: 420px; height: 420px;
+    border: 1px solid var(--border-color); border-radius: 50%; pointer-events: none;
   }
-  .project-grid{
-    display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 22px;
-  }
-  
-  /* MEJORA 4: Se asegura que el project-card se comporte bien como etiqueta <a> */
-  .project-card{
-    background: var(--bg-panel);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 26px 26px 24px;
-    display:flex; flex-direction: column;
-    text-decoration: none; /* Previene subrayado en el enlace completo */
-    color: inherit;
-    transition: border-color .15s, transform .15s;
-  }
-  .project-card:hover{ border-color: var(--accent-dim); transform: translateY(-2px); }
-  .project-card:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
-  .project-index{
-    font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
-    margin-bottom: 10px;
-  }
-  .project-title{
-    font-family: var(--font-display); font-size: 18px; font-weight: 600;
-    margin-bottom: 4px;
-  }
-  .project-context{
-    font-family: var(--font-mono); font-size: 12px; color: var(--teal);
-    margin-bottom: 16px;
-  }
-  .project-field{ margin-bottom: 12px; }
-  .project-field:last-of-type{ margin-bottom: 16px; }
-  .project-field .f-label{
-    font-family: var(--font-mono); font-size: 10.5px; color: var(--text-dim);
-    text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 4px;
-  }
-  .project-field .f-value{ font-size: 14px; color: var(--text-muted); }
-  .project-card .tags{ margin-top: auto; }
-
-  /* ---------- Skills ---------- */
-  .skill-grid{
-    display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 28px;
-  }
-  .skill-group{
-    background: var(--bg-panel);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 20px 22px;
-  }
-  .skill-group h3{
-    font-family: var(--font-mono); font-size: 11.5px; color: var(--text-dim);
-    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px;
-  }
-  .skill-group .tags .tag{ border-color: rgba(143,163,191,0.22); }
-
-  /* ---------- Education / certs / lang ---------- */
-  .grid-2{
-    display:grid; grid-template-columns: 1.2fr 1fr; gap: 40px;
-  }
-  .block-title{
-    font-family: var(--font-mono); font-size: 11.5px; color: var(--text-dim);
-    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px;
-  }
-  .edu-item{ margin-bottom: 18px; }
-  .edu-item .name{ font-family: var(--font-display); font-size: 16px; font-weight: 600; }
-  .edu-item .meta{ font-family: var(--font-mono); font-size: 12.5px; color: var(--text-muted); margin-top: 3px; }
-  .cert-list{ list-style:none; display:grid; gap: 12px; }
-  .cert-list li{ font-size: 14px; color: var(--text-muted); padding-left: 16px; position: relative; }
-  .cert-list li::before{ content:"▪"; position:absolute; left:0; color: var(--accent); font-size: 10px; top:5px; }
-  .cert-list .cert-id{ font-family: var(--font-mono); font-size: 11.5px; color: var(--text-dim); display:block; }
-
-  /* ---------- Footer / contact ---------- */
-  footer{
-    padding: 70px 0 60px;
-    border-top: 1px solid var(--border);
-  }
-  .contact-cta h2{ max-width: 520px; }
-  .contact-grid{
-    margin-top: 32px;
-    display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-    gap: 18px;
-  }
-  .contact-card{
-    border: 1px solid var(--border); border-radius: 4px; padding: 18px 20px;
-    text-decoration: none; transition: border-color .15s, transform .15s;
-    display: block;
-  }
-  .contact-card:hover{ border-color: var(--accent-dim); transform: translateY(-2px); }
-  .contact-card:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
-  .contact-card .label{
-    font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
-    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;
-  }
-  .contact-card .value{ font-family: var(--font-display); font-size: 15px; }
-  .foot-note{
-    margin-top: 50px; font-family: var(--font-mono); font-size: 11.5px; color: var(--text-dim);
-    display:flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  .hero-circle-2 {
+    position: absolute; right: -40px; top: 0; width: 300px; height: 300px;
+    border: 1px solid var(--grid-line); border-radius: 50%; pointer-events: none;
   }
 
-  /* MEJORA 2: Se habilita scroll horizontal en móviles (en lugar de ocultar enlaces) */
-  @media (max-width: 720px){
-    .grid-2{ grid-template-columns: 1fr; }
-    
-    .topbar-links{
-      gap: 16px;
-      overflow-x: auto;
-      white-space: nowrap; /* Evita que los enlaces salten de línea */
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 4px;
-    }
-    /* Oculta la barra de desplazamiento estética pero mantiene la funcionalidad */
-    .topbar-links::-webkit-scrollbar { display: none; }
-    .topbar-links { -ms-overflow-style: none; scrollbar-width: none; }
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    html{ scroll-behavior: auto; }
+  /* Ajustes de accesibilidad de foco */
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--bs-primary) !important;
+    outline-offset: 3px;
   }
 </style>
 </head>
-<body>
+<body data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true">
 
-<div class="topbar">
-  <div class="topbar-inner">
-    <div class="id">JSPB<span>_</span>2026</div>
-    <div class="topbar-links">
-      <a href="#experiencia">Experiencia</a>
-      <a href="#habilidades">Habilidades</a>
-      <a href="#proyectos">Proyectos</a>
-      <a href="#educacion">Educación</a>
-      <a href="#contacto">Contacto</a>
+<!-- NAVBAR DE BOOTSTRAP -->
+<nav id="mainNav" class="navbar navbar-expand-md navbar-dark navbar-glass sticky-top py-3">
+  <div class="container" style="max-width: 980px;">
+    <a class="navbar-brand font-mono fs-6 mb-0" href="#inicio">
+      JSPB<span class="text-primary">_</span>2026
+    </a>
+    <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse justify-content-end" id="navbarLinks">
+      <ul class="navbar-nav font-mono" style="font-size: 13px;">
+        <li class="nav-item"><a class="nav-link text-muted px-3" href="#experiencia">Experiencia</a></li>
+        <li class="nav-item"><a class="nav-link text-muted px-3" href="#habilidades">Habilidades</a></li>
+        <li class="nav-item"><a class="nav-link text-muted px-3" href="#proyectos">Proyectos</a></li>
+        <li class="nav-item"><a class="nav-link text-muted px-3" href="#educacion">Educación</a></li>
+        <li class="nav-item"><a class="nav-link text-muted ps-3 pe-0" href="#contacto">Contacto</a></li>
+      </ul>
     </div>
   </div>
-</div>
+</nav>
 
-<div class="wrap">
+<div class="container pb-5" style="max-width: 980px;">
 
-  <section class="hero" id="inicio" style="border-top:none;">
-    <div class="eyebrow">Disponible para nuevos retos</div>
-    <h1>José Samuel<br>Puga Beltrán</h1>
-    <div class="role-line">Tech Lead <span class="sep">/</span> Líder técnico de proyectos <span class="sep">/</span> Software &amp; Digital Solutions</div>
-    <p class="pitch">
+  <!-- HERO SECTION -->
+  <section id="inicio" class="hero-wrapper py-5 mt-4 mb-5 border-0">
+    <div class="hero-circle-1 d-none d-md-block"></div>
+    <div class="hero-circle-2 d-none d-md-block"></div>
+    
+    <div class="d-flex align-items-center font-mono text-primary text-uppercase mb-4" style="font-size: 12.5px; letter-spacing: 0.12em;">
+      <span class="rounded-circle bg-primary me-2" style="width: 7px; height: 7px; box-shadow: 0 0 0 4px rgba(232,163,61,0.35);"></span>
+      Disponible para nuevos retos
+    </div>
+    
+    <h1 class="display-3 fw-bold mb-3" style="max-width: 780px;">José Samuel<br>Puga Beltrán</h1>
+    
+    <div class="font-mono text-teal fs-6 mb-4">
+      Tech Lead <span class="text-dim mx-2">/</span> Líder técnico de proyectos <span class="text-dim mx-2">/</span> Software &amp; Digital Solutions
+    </div>
+    
+    <p class="fs-5 text-muted mb-5" style="max-width: 620px;">
       Más de 10 años liderando equipos y proyectos de software, desde arquitectura e integración de sistemas
       hasta inteligencia de negocios y automatización de procesos, bajo metodologías ágiles.
     </p>
-    <div class="hero-cta">
-      <a class="btn btn-primary" href="mailto:samuelpugab@hotmail.com">Escribir un correo</a>
-      <a class="btn btn-ghost" href="#experiencia">Ver experiencia ↓</a>
+    
+    <div class="d-flex flex-wrap gap-3 font-mono" style="font-size: 13px;">
+      <a class="btn btn-primary text-dark fw-bold px-4 py-2" href="mailto:samuelpugab@hotmail.com">Escribir un correo</a>
+      <a class="btn btn-outline-secondary text-light px-4 py-2 border-opacity-25" href="#experiencia">Ver experiencia ↓</a>
     </div>
   </section>
 
-  <section id="experiencia">
-    <div class="section-head">
-      <h2>Experiencia profesional</h2>
-      <div class="section-num">01 — trayectoria</div>
+  <!-- EXPERIENCIA SECTION -->
+  <section id="experiencia" class="py-5 border-top border-secondary border-opacity-25">
+    <div class="d-flex justify-content-between align-items-baseline mb-5 flex-wrap gap-3">
+      <h2 class="mb-0">Experiencia profesional</h2>
+      <span class="font-mono text-dim small">01 — trayectoria</span>
     </div>
 
     <div class="pipeline">
-
+      <!-- Role 1 -->
       <div class="role current">
-        <div class="role-top">
-          <div class="role-title">Tech Lead</div>
-          <div class="role-dates">Feb 2025 — Actual</div>
+        <div class="d-flex justify-content-between align-items-baseline flex-wrap gap-2 mb-2">
+          <h3 class="font-display h5 fw-bold mb-0">Tech Lead</h3>
+          <span class="font-mono small text-dim">Feb 2025 — Actual</span>
         </div>
-        <div class="role-company">Afore Coppel S.A. de C.V.</div>
-        <p class="role-desc">
-          Liderazgo técnico al equipo de desarrollo, transformando requerimientos funcionales y necesidades de
-          negocio en soluciones tecnológicas viables, mantenibles y alineadas con estándares de calidad y arquitectura.
+        <div class="font-mono small text-teal mb-3">Afore Coppel S.A. de C.V.</div>
+        <p class="text-muted" style="max-width: 680px;">
+          Liderazgo técnico al equipo de desarrollo, transformando requerimientos funcionales y necesidades de negocio en soluciones tecnológicas viables, mantenibles y alineadas con estándares de calidad.
         </p>
-        <details>
-          <summary>Ver responsabilidades</summary>
-          <ul class="role-bullets">
-            <li>Arquitectura de Soluciones y Análisis de Impacto: Diseño y documento la arquitectura técnica y topología de sistemas, diagramando flujos e infraestructura (utilizando Mermaid.js y draw.io) para visualizar la afectación en servidores, definir el stack tecnológico y orquestar la creación de nuevos componentes.</li>
-            <li>Liderazgo Técnico y Adopción Ágil (Scrum): Lidero técnica y operativamente una célula de desarrollo, actuando como pilar en la transición de la empresa hacia la metodología Scrum. Resolviendo bloqueos técnicos diarios y garantizando el cumplimiento de los KPIs de entrega (velocidad y objetivos del sprint).</li>
-            <li>Alineación Negocio-Tecnología: Actúo como puente estratégico colaborando directamente con el Product Owner y el Scrum Master para refinar Historias de Usuario (HU), traduciendo necesidades comerciales en requerimientos técnicos viables y optimizando la estrategia de ataque del sprint.</li>
-            <li>Gestión de Talento y Continuidad Operativa: Mentoreo al equipo de ingeniería, supervisando su desarrollo profesional (capacitaciones) y calidad de código. Mantengo un perfil hands-on, desarrollando componentes críticos para asegurar la continuidad de las entregas ante contingencias o ausencias.</li>
-            <li>Gobierno de Infraestructura: Soy owner de dos servidores críticos asignados, garantizando su estabilidad, cumplimiento de normativas de las áreas operativas y generación de documentación técnica de alto nivel.</li>
+        
+        <details class="mb-3">
+          <summary class="font-mono text-primary small py-2 px-1 d-inline-block">Ver responsabilidades</summary>
+          <ul class="text-light mt-2 ps-3" style="font-size: 15px; list-style-type: '–  ';">
+            <li class="mb-2">Arquitectura de Soluciones y Análisis de Impacto: Diseño y documento la arquitectura técnica y topología de sistemas, diagramando flujos e infraestructura (utilizando Mermaid.js y draw.io).</li>
+            <li class="mb-2">Liderazgo Técnico y Adopción Ágil (Scrum): Lidero técnica y operativamente una célula de desarrollo, actuando como pilar en la transición de la empresa hacia la metodología Scrum.</li>
+            <li class="mb-2">Alineación Negocio-Tecnología: Actúo como puente estratégico colaborando directamente con el Product Owner y el Scrum Master.</li>
+            <li class="mb-2">Gobierno de Infraestructura: Soy owner de dos servidores críticos asignados, garantizando su estabilidad y cumplimiento de normativas.</li>
           </ul>
         </details>
-        <div class="tags">
-          <span class="tag">Liderazgo técnico</span>
-          <span class="tag">Scrum</span>
-          <span class="tag">Code review</span>
-          <span class="tag">Arquitectura</span>
+        
+        <div class="d-flex flex-wrap gap-2 font-mono" style="font-size: 11.5px;">
+          <span class="badge border border-secondary border-opacity-25 text-muted fw-normal py-2 px-3">Liderazgo técnico</span>
+          <span class="badge border border-secondary border-opacity-25 text-muted fw-normal py-2 px-3">Scrum</span>
+          <span class="badge border border-secondary border-opacity-25 text-muted fw-normal py-2 px-3">Code review</span>
+          <span class="badge border border-secondary border-opacity-25 text-muted fw-normal py-2 px-3">Arquitectura</span>
         </div>
       </div>
 
+      <!-- Role 2 -->
       <div class="role">
-        <div class="role-top">
-          <div class="role-title">Coordinador de desarrollo</div>
-          <div class="role-dates">Mar 2019 — Feb 2025</div>
+        <div class="d-flex justify-content-between align-items-baseline flex-wrap gap-2 mb-2">
+          <h3 class="font-display h5 fw-bold mb-0">Coordinador de desarrollo</h3>
+          <span class="font-mono small text-dim">Mar 2019 — Feb 2025</span>
         </div>
-        <div class="role-company">Grupo Impulsora</div>
-        <p class="role-desc">
-          Coordinación y liderazgo del equipo de desarrollo a lo largo del ciclo de vida de proyectos de software,
-          combinando gestión de equipo con desarrollo directo de soluciones empresariales.
+        <div class="font-mono small text-teal mb-3">Grupo Impulsora</div>
+        <p class="text-muted" style="max-width: 680px;">
+          Coordinación y liderazgo del equipo de desarrollo a lo largo del ciclo de vida de proyectos de software, combinando gestión de equipo con desarrollo directo.
         </p>
-        <details>
-          <summary>Ver responsabilidades</summary>
-          <ul class="role-bullets">
-            <li>Transformación Digital y Liderazgo de IT: Lideré la modernización tecnológica de la empresa desde cero, fundando y escalando el departamento de desarrollo. Dirigí el reclutamiento, mentoring y gestión del equipo técnico, y evangelicé a las gerencias para migrar procesos críticos y aislados en Excel hacia un ecosistema web estandarizado.</li>
-            <li>Arquitectura de Sistemas & Integración Empresarial (SAP): Diseñé, tomé decisiones de stack (PHP/Laravel) y desarrollé un ecosistema omnicanal de cero, entregando una plataforma web central (con más de 100 módulos) y 3 aplicaciones móviles (React-Native) consumiendo una API REST propia. Todo integrado de forma segura y bidireccional al core de SAP Business One mediante DI API y consultas directas.</li>
-            <li>Ingeniería de Datos y Business Intelligence: Conceptualicé y construí la infraestructura de análisis de datos para la toma de decisiones directivas, diseñando un Data Warehouse alimentado por procesos ETL creados a la medida y visualizado a través de tableros dinámicos en QlikSense.</li>
-            <li>Implementación de Cultura Ágil (Scrum): Fui el catalizador principal para la adopción de la metodología Scrum en la organización, resolviendo problemas históricos de definición de alcance y tiempos de entrega. Capacité técnica y metodológicamente tanto al equipo de desarrollo como a los nuevos roles de gestión (Product Owners/Scrum Masters).</li>
-            <li>Gestión Operativa y Soporte Nivel 3: Mantuve el gobierno total sobre la arquitectura tecnológica, garantizando la alta disponibilidad de las aplicaciones y encabezando el diagnóstico y resolución de incidencias de código complejas escaladas por la mesa de ayuda.</li>
+        
+        <details class="mb-3">
+          <summary class="font-mono text-primary small py-2 px-1 d-inline-block">Ver responsabilidades</summary>
+          <ul class="text-light mt-2 ps-3" style="font-size: 15px; list-style-type: '–  ';">
+            <li class="mb-2">Transformación Digital y Liderazgo de IT: Lideré la modernización tecnológica de la empresa desde cero, fundando y escalando el departamento de desarrollo.</li>
+            <li class="mb-2">Arquitectura de Sistemas & Integración Empresarial (SAP): Diseñé y desarrollé un ecosistema omnicanal integrado de forma segura al core de SAP Business One mediante DI API.</li>
+            <li class="mb-2">Ingeniería de Datos y BI: Construí la infraestructura de análisis de datos mediante procesos ETL y tableros en QlikSense.</li>
           </ul>
         </details>
-        <div class="tags">
-          <span class="tag">PHP / Laravel</span>
-          <span class="tag">React Native</span>
-          <span class="tag">Python</span>
-          <span class="tag">SAP B1</span>
-          <span class="tag">Qlik Sense</span>
-          <span class="tag">ETL</span>
-        </div>
-      </div>
 
-      <div class="role">
-        <div class="role-top">
-          <div class="role-title">Tester</div>
-          <div class="role-dates">Jun 2018 — Mar 2019</div>
-        </div>
-        <div class="role-company">Neoris</div>
-        <p class="role-desc">
-          Aseguramiento de calidad funcional mediante definición, ejecución y seguimiento de pruebas de software
-          para proyectos de organizaciones como Cemex, Oxxo y Banco Popular de República Dominicana.
-        </p>
-        <details>
-          <summary>Ver responsabilidades</summary>
-          <ul class="role-bullets">
-            <li>Aseguramiento de Calidad en Core Bancario (Banco Popular RD): Trabajé 6 meses de forma presencial validando una migración crítica del sistema core de créditos. Diseñé y ejecuté pruebas de integración y regresión en más de 30 sistemas para garantizar la continuidad operativa y mitigar riesgos de afectación tras la actualización del núcleo. </li>
-            <li>Despliegues Enterprise Internacionales (Oxxo & Cemex): Ejecuté los ciclos de pruebas funcionales para la implementación del sistema central de ventas durante la apertura de mercado de Oxxo en Perú. Adicionalmente, validé la integridad de un sistema de procesamiento y traducción de información corporativa para Cemex. </li>
-            <li>Ciclo de Vida de Pruebas (STLC): Fui responsable de la creación de planes y casos de prueba, ejecución exhaustiva de pruebas manuales sistemáticas y documentación de incidencias, asegurando que cada entrega cumpliera estrictamente con los requerimientos técnicos y de negocio. </li>
-          </ul>
-        </details>
-        <div class="tags">
-          <span class="tag">QA</span>
-          <span class="tag">Casos de prueba</span>
-          <span class="tag">Pruebas de usuario</span>
-        </div>
-      </div>
-
-      <div class="role">
-        <div class="role-top">
-          <div class="role-title">Programador de control de incidencias</div>
-          <div class="role-dates">Jun 2016 — Jun 2018</div>
-        </div>
-        <div class="role-company">Coppel</div>
-        <p class="role-desc">
-          Diagnóstico de causa raíz en aplicaciones, código fuente y bases de datos para incidencias de segundo nivel
-          reportadas por mesa de ayuda.
-        </p>
-        <details>
-          <summary>Ver responsabilidades</summary>
-          <ul class="role-bullets">
-            <li>Análisis de Causa Raíz en Producción (Troubleshooting): Gestioné el diagnóstico avanzado de incidencias críticas escaladas por la mesa de ayuda, identificando el origen de fallos a través de múltiples capas del sistema: problemas de conectividad, errores de despliegue, inconsistencias de bases de datos y fallos lógicos. </li>
-            <li>Ingeniería Inversa y Debugging: Analizaba y rastreaba flujos de ejecución en un promedio de 10 repositorios/sistemas distintos diariamente, procesando y diagnosticando alrededor de 8 incidencias de alta prioridad al día para su corrección precisa. </li>
-            <li>Integridad de Datos y Sistemas: Evaluaba el impacto de transacciones fallidas, actualizaciones de base de datos incorrectas (SQL Server, PostgreSQL) y errores de notas de producción, documentando los hallazgos detalladamente para el equipo de desarrollo y evitando la reincidencia de los errores.</li>
-          </ul>
-        </details>
-        <div class="tags">
-          <span class="tag">C# / C++</span>
-          <span class="tag">SQL Server</span>
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">Diagnóstico</span>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <section id="habilidades">
-    <div class="section-head">
-      <h2>Habilidades técnicas</h2>
-      <div class="section-num">02 — stack</div>
-    </div>
-    <div class="skill-grid">
-      <div class="skill-group">
-        <h3>Lenguajes &amp; frameworks</h3>
-        <div class="tags">
-          <span class="tag">PHP (Laravel)</span>
-          <span class="tag">Python</span>
-          <span class="tag">JavaScript</span>
-          <span class="tag">React Native</span>
-          <span class="tag">HTML5 / CSS3</span>
-          <span class="tag">C#</span>
-          <span class="tag">C++</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h3>Datos &amp; plataformas</h3>
-        <div class="tags">
-          <span class="tag">SQL Server</span>
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">Qlik Sense</span>
-          <span class="tag">SAP Business One</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h3>Prácticas &amp; herramientas</h3>
-        <div class="tags">
-          <span class="tag">Scrum</span>
-          <span class="tag">GitHub</span>
-          <span class="tag">Code review</span>
-          <span class="tag">APIs REST</span>
-          <span class="tag">ETL</span>
+        <div class="d-flex flex-wrap gap-2 font-mono" style="font-size: 11.5px;">
+          <span class="badge border border-secondary border-opacity-25 text-muted fw-normal py-2 px-3">PHP / Laravel</span>
+          <span class="badge border border-secondary border-opacity-25 text-muted fw-normal py-2 px-3">React Native</span>
+          <span class="badge border border-secondary border-opacity-25 text-muted fw-normal py-2 px-3">Python</span>
+          <span class="badge border border-secondary border-opacity-25 text-muted fw-normal py-2 px-3">SAP B1</span>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="proyectos">
-    <div class="section-head">
-      <h2>Proyectos destacados</h2>
-      <div class="section-num">03 — casos de estudio</div>
+  <!-- HABILIDADES SECTION -->
+  <section id="habilidades" class="py-5 border-top border-secondary border-opacity-25">
+    <div class="d-flex justify-content-between align-items-baseline mb-5 flex-wrap gap-3">
+      <h2 class="mb-0">Habilidades técnicas</h2>
+      <span class="font-mono text-dim small">02 — stack</span>
     </div>
 
-    <div class="project-grid">
+    <!-- BOOTSTRAP GRID -->
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="custom-card rounded-2 p-4 h-100">
+          <h3 class="font-mono small text-dim text-uppercase tracking-wide mb-3" style="letter-spacing: 0.1em;">Lenguajes &amp; frameworks</h3>
+          <div class="d-flex flex-wrap gap-2 font-mono" style="font-size: 11.5px;">
+            <span class="badge border border-secondary border-opacity-25 text-muted fw-normal px-2 py-1">PHP (Laravel)</span>
+            <span class="badge border border-secondary border-opacity-25 text-muted fw-normal px-2 py-1">Python</span>
+            <span class="badge border border-secondary border-opacity-25 text-muted fw-normal px-2 py-1">React Native</span>
+            <span class="badge border border-secondary border-opacity-25 text-muted fw-normal px-2 py-1">C# / C++</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="custom-card rounded-2 p-4 h-100">
+          <h3 class="font-mono small text-dim text-uppercase tracking-wide mb-3" style="letter-spacing: 0.1em;">Datos &amp; plataformas</h3>
+          <div class="d-flex flex-wrap gap-2 font-mono" style="font-size: 11.5px;">
+            <span class="badge border border-secondary border-opacity-25 text-muted fw-normal px-2 py-1">SQL Server</span>
+            <span class="badge border border-secondary border-opacity-25 text-muted fw-normal px-2 py-1">PostgreSQL</span>
+            <span class="badge border border-secondary border-opacity-25 text-muted fw-normal px-2 py-1">Qlik Sense</span>
+            <span class="badge border border-secondary border-opacity-25 text-muted fw-normal px-2 py-1">SAP Business One</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="custom-card rounded-2 p-4 h-100">
+          <h3 class="font-mono small text-dim text-uppercase tracking-wide mb-3" style="letter-spacing: 0.1em;">Prácticas &amp; herramientas</h3>
+          <div class="d-flex flex-wrap gap-2 font-mono" style="font-size: 11.5px;">
+            <span class="badge border border-secondary border-opacity-25 text-muted fw-normal px-2 py-1">Scrum</span>
+            <span class="badge border border-secondary border-opacity-25 text-muted fw-normal px-2 py-1">Code review</span>
+            <span class="badge border border-secondary border-opacity-25 text-muted fw-normal px-2 py-1">APIs REST</span>
+            <span class="badge border border-secondary border-opacity-25 text-muted fw-normal px-2 py-1">ETL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS SECTION -->
+  <section id="proyectos" class="py-5 border-top border-secondary border-opacity-25">
+    <div class="d-flex justify-content-between align-items-baseline mb-5 flex-wrap gap-3">
+      <h2 class="mb-0">Proyectos destacados</h2>
+      <span class="font-mono text-dim small">03 — casos de estudio</span>
+    </div>
+
+    <!-- BOOTSTRAP GRID -->
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <a href="#" class="custom-card rounded-2 p-4 d-flex flex-column h-100">
+          <div class="font-mono text-dim mb-2" style="font-size: 11px;">PROYECTO 01</div>
+          <h3 class="font-display h5 fw-bold mb-1">Integración con SAP Business One</h3>
+          <div class="font-mono text-teal small mb-3">Grupo Impulsora</div>
+          
+          <div class="mb-3">
+            <div class="font-mono text-dim text-uppercase mb-1" style="font-size: 10.5px; letter-spacing: 0.09em;">Objetivo</div>
+            <div class="text-muted small">Eliminar la captura duplicada de información entre el ERP y las aplicaciones internas.</div>
+          </div>
+          <div class="mb-4">
+            <div class="font-mono text-dim text-uppercase mb-1" style="font-size: 10.5px; letter-spacing: 0.09em;">Lo realizado</div>
+            <div class="text-muted small">Diseño e implementación de integraciones mediante el SDK DI API de SAP Business One.</div>
+          </div>
+          
+          <div class="d-flex flex-wrap gap-2 font-mono mt-auto" style="font-size: 11.5px;">
+            <span class="badge border border-secondary border-opacity-25 text-muted fw-normal px-2 py-1">SAP B1</span>
+            <span class="badge border border-secondary border-opacity-25 text-muted fw-normal px-2 py-1">SDK DI API</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-lg-6">
+        <a href="#" class="custom-card rounded-2 p-4 d-flex flex-column h-100">
+          <div class="font-mono text-dim mb-2" style="font-size: 11px;">PROYECTO 02</div>
+          <h3 class="font-display h5 fw-bold mb-1">Automatización de procesos</h3>
+          <div class="font-mono text-teal small mb-3">Afore Coppel</div>
+          
+          <div class="mb-3">
+            <div class="font-mono text-dim text-uppercase mb-1" style="font-size: 10.5px; letter-spacing: 0.09em;">Objetivo</div>
+            <div class="text-muted small">Reducir el tiempo dedicado a tareas manuales de análisis y generación de reportes.</div>
+          </div>
+          <div class="mb-4">
+            <div class="font-mono text-dim text-uppercase mb-1" style="font-size: 10.5px; letter-spacing: 0.09em;">Lo realizado</div>
+            <div class="text-muted small">Definición y validación de scripts en Python para automatizar procesos de negocio, con revisión técnica vía code review.</div>
+          </div>
+          
+          <div class="d-flex flex-wrap gap-2 font-mono mt-auto" style="font-size: 11.5px;">
+            <span class="badge border border-secondary border-opacity-25 text-muted fw-normal px-2 py-1">Python</span>
+            <span class="badge border border-secondary border-opacity-25 text-muted fw-normal px-2 py-1">Automatización</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCACION SECTION -->
+  <section id="educacion" class="py-5 border-top border-secondary border-opacity-25">
+    <div class="d-flex justify-content-between align-items-baseline mb-5 flex-wrap gap-3">
+      <h2 class="mb-0">Educación &amp; formación</h2>
+      <span class="font-mono text-dim small">04 — trayectoria académica</span>
+    </div>
+    
+    <div class="row g-5">
+      <div class="col-md-6">
+        <h3 class="font-mono small text-dim text-uppercase tracking-wide mb-4" style="letter-spacing: 0.1em;">Educación</h3>
+        <div class="mb-4">
+          <div class="font-display h6 fw-bold mb-1">Licenciatura en Informática</div>
+          <div class="font-mono text-muted" style="font-size: 12.5px;">Universidad Autónoma de Sinaloa — 2012 / 2017</div>
+        </div>
+        
+        <h3 class="font-mono small text-dim text-uppercase tracking-wide mt-5 mb-3" style="letter-spacing: 0.1em;">Idiomas</h3>
+        <span class="badge border border-secondary border-opacity-25 text-muted fw-normal px-3 py-2 font-mono" style="font-size: 12.5px;">Inglés — B1</span>
+      </div>
       
-      <!-- MEJORA 4: Los project-card ahora son enlaces reales (<a> en lugar de <div>) -->
-      <a href="#" class="project-card">
-        <div class="project-index">PROYECTO 01</div>
-        <div class="project-title">Integración con SAP Business One</div>
-        <div class="project-context">Grupo Impulsora</div>
-        <div class="project-field">
-          <div class="f-label">Objetivo</div>
-          <div class="f-value">Eliminar la captura duplicada de información entre el ERP y las aplicaciones internas del negocio.</div>
-        </div>
-        <div class="project-field">
-          <div class="f-label">Lo realizado</div>
-          <div class="f-value">Diseño e implementación de integraciones mediante el SDK DI API de SAP Business One, sincronizando datos entre sistemas en tiempo real.</div>
-        </div>
-        <div class="tags">
-          <span class="tag">SAP B1</span>
-          <span class="tag">SDK DI API</span>
-          <span class="tag">Integración</span>
-        </div>
-      </a>
-
-      <a href="#" class="project-card">
-        <div class="project-index">PROYECTO 02</div>
-        <div class="project-title">Tableros de inteligencia de negocios</div>
-        <div class="project-context">Grupo Impulsora</div>
-        <div class="project-field">
-          <div class="f-label">Objetivo</div>
-          <div class="f-value">Dar visibilidad a indicadores clave del negocio para agilizar la toma de decisiones.</div>
-        </div>
-        <div class="project-field">
-          <div class="f-label">Lo realizado</div>
-          <div class="f-value">Diseño de procesos ETL para extracción y transformación de datos, y construcción de tableros interactivos en Qlik Sense.</div>
-        </div>
-        <div class="tags">
-          <span class="tag">Qlik Sense</span>
-          <span class="tag">ETL</span>
-          <span class="tag">BI</span>
-        </div>
-      </a>
-
-      <a href="#" class="project-card">
-        <div class="project-index">PROYECTO 03</div>
-        <div class="project-title">Aplicación móvil con React Native</div>
-        <div class="project-context">Grupo Impulsora</div>
-        <div class="project-field">
-          <div class="f-label">Objetivo</div>
-          <div class="f-value">Extender una solución empresarial clave a dispositivos móviles para el equipo de campo.</div>
-        </div>
-        <div class="project-field">
-          <div class="f-label">Lo realizado</div>
-          <div class="f-value">Desarrollo de la app con React Native, consumiendo APIs REST propias construidas en Laravel.</div>
-        </div>
-        <div class="tags">
-          <span class="tag">React Native</span>
-          <span class="tag">Laravel</span>
-          <span class="tag">APIs REST</span>
-        </div>
-      </a>
-
-      <a href="#" class="project-card">
-        <div class="project-index">PROYECTO 04</div>
-        <div class="project-title">Automatización de procesos</div>
-        <div class="project-context">Afore Coppel</div>
-        <div class="project-field">
-          <div class="f-label">Objetivo</div>
-          <div class="f-value">Reducir el tiempo dedicado a tareas manuales de análisis y generación de reportes.</div>
-        </div>
-        <div class="project-field">
-          <div class="f-label">Lo realizado</div>
-          <div class="f-value">Definición y validación de scripts en Python para automatizar procesos de negocio, con revisión técnica vía code review.</div>
-        </div>
-        <div class="tags">
-          <span class="tag">Python</span>
-          <span class="tag">Automatización</span>
-          <span class="tag">Code review</span>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <section id="educacion">
-    <div class="section-head">
-      <h2>Educación &amp; formación</h2>
-      <div class="section-num">04 — trayectoria académica</div>
-    </div>
-    <div class="grid-2">
-      <div>
-        <div class="block-title">Educación</div>
-        <div class="edu-item">
-          <div class="name">Licenciatura en Informática</div>
-          <div class="meta">Universidad Autónoma de Sinaloa — 2012 / 2017</div>
-        </div>
-        <div class="block-title" style="margin-top:28px;">Idiomas</div>
-        <div class="tags"><span class="tag">Inglés — B1</span></div>
-      </div>
-      <div>
-        <div class="block-title">Certificaciones &amp; formación complementaria</div>
-        <ul class="cert-list">
-          <li>Business Intelligence Foundation Professional Certification (BIFPC)
-            <span class="cert-id">CertiProf 2024 — 90980663</span>
+      <div class="col-md-6">
+        <h3 class="font-mono small text-dim text-uppercase tracking-wide mb-4" style="letter-spacing: 0.1em;">Certificaciones</h3>
+        <ul class="text-muted list-unstyled" style="font-size: 14.5px;">
+          <li class="mb-3 position-relative ps-3">
+            <span class="position-absolute start-0 text-primary" style="font-size: 10px; top: 4px;">▪</span>
+            Business Intelligence Foundation (BIFPC)
+            <span class="d-block font-mono text-dim mt-1" style="font-size: 11.5px;">CertiProf 2024 — 90980663</span>
           </li>
-          <li>Scrum Foundation Professional Certification (SFPC)
-            <span class="cert-id">CertiProf 2024 — 90977799</span>
+          <li class="mb-3 position-relative ps-3">
+            <span class="position-absolute start-0 text-primary" style="font-size: 10px; top: 4px;">▪</span>
+            Scrum Foundation Professional (SFPC)
+            <span class="d-block font-mono text-dim mt-1" style="font-size: 11.5px;">CertiProf 2024 — 90977799</span>
           </li>
-          <li>Generative AI Leader
-            <span class="cert-id">Google Skills</span>
+          <li class="mb-3 position-relative ps-3">
+            <span class="position-absolute start-0 text-primary" style="font-size: 10px; top: 4px;">▪</span>
+            Generative AI Leader
+            <span class="d-block font-mono text-dim mt-1" style="font-size: 11.5px;">Google Skills</span>
           </li>
-          <li>Constancia de habilidades gerenciales</li>
-          <li>Constancia de competencias — mandos medios</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <footer id="contacto">
-    <div class="contact-cta">
-      <div class="section-num" style="margin-bottom:14px;">05 — contacto</div>
-      <h2>Ponte en contacto conmigo</h2>
-      <p class="pitch">Escríbeme, con gusto conversamos sobre el proyecto.</p>
+  <!-- FOOTER / CONTACTO -->
+  <footer id="contacto" class="py-5 border-top border-secondary border-opacity-25">
+    <div class="mb-4">
+      <div class="font-mono text-dim small mb-3">05 — contacto</div>
+      <h2 class="display-6 fw-bold mb-2">Ponte en contacto conmigo</h2>
+      <p class="text-muted fs-5">Escríbeme, con gusto conversamos sobre el proyecto.</p>
     </div>
-    <div class="contact-grid">
-      <a class="contact-card" href="mailto:samuelpugab@hotmail.com">
-        <div class="label">Correo</div>
-        <div class="value">samuelpugab@hotmail.com</div>
-      </a>
-      <a class="contact-card" href="tel:+526672921255">
-        <div class="label">Teléfono</div>
-        <div class="value">(66) 72‑92‑12‑55</div>
-      </a>
-      <a class="contact-card" href="https://samuelpuga.wordpress.com" target="_blank" rel="noopener">
-        <div class="label">Blog</div>
-        <div class="value">samuelpuga.wordpress.com</div>
-      </a>
-      <div class="contact-card" style="cursor:default;">
-        <div class="label">Ubicación</div>
-        <div class="value">Culiacán, Sinaloa, MX</div>
+    
+    <div class="row g-3 mt-4">
+      <div class="col-sm-6 col-lg-3">
+        <a href="mailto:samuelpugab@hotmail.com" class="contact-card border border-secondary border-opacity-25 rounded-2 p-3 text-decoration-none text-light d-block h-100 transition">
+          <div class="font-mono text-dim text-uppercase mb-2" style="font-size: 11px; letter-spacing: 0.08em;">Correo</div>
+          <div class="font-display" style="font-size: 15px;">samuelpugab@hotmail.com</div>
+        </a>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <a href="tel:+526672921255" class="contact-card border border-secondary border-opacity-25 rounded-2 p-3 text-decoration-none text-light d-block h-100 transition">
+          <div class="font-mono text-dim text-uppercase mb-2" style="font-size: 11px; letter-spacing: 0.08em;">Teléfono</div>
+          <div class="font-display" style="font-size: 15px;">(66) 72-92-12-55</div>
+        </a>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <a href="https://samuelpuga.wordpress.com" target="_blank" class="contact-card border border-secondary border-opacity-25 rounded-2 p-3 text-decoration-none text-light d-block h-100 transition">
+          <div class="font-mono text-dim text-uppercase mb-2" style="font-size: 11px; letter-spacing: 0.08em;">Blog</div>
+          <div class="font-display" style="font-size: 15px;">samuelpuga.wordpress.com</div>
+        </a>
+      </div>
+      <div class="col-sm-6 col-lg-3">
+        <div class="border border-secondary border-opacity-25 rounded-2 p-3 h-100">
+          <div class="font-mono text-dim text-uppercase mb-2" style="font-size: 11px; letter-spacing: 0.08em;">Ubicación</div>
+          <div class="font-display" style="font-size: 15px;">Culiacán, Sinaloa, MX</div>
+        </div>
       </div>
     </div>
-    <div class="foot-note">
+    
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mt-5 pt-4 font-mono text-dim small">
       <span>José Samuel Puga Beltrán</span>
       <span>samuelpuga.com</span>
     </div>
@@ -713,32 +431,8 @@
 
 </div>
 
-<!-- MEJORA 6: Script para resaltar el enlace del menú según la sección visible (ScrollSpy) -->
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const sections = document.querySelectorAll("section, footer");
-    const navLinks = document.querySelectorAll(".topbar-links a");
-
-    window.addEventListener("scroll", () => {
-      let current = "";
-      
-      sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
-        // Ajuste el threshold (150px) según cuando quieres que cambie de estado
-        if (scrollY >= sectionTop - 150) {
-          current = section.getAttribute("id");
-        }
-      });
-
-      navLinks.forEach((link) => {
-        link.classList.remove("active");
-        if (link.getAttribute("href") === `#${current}`) {
-          link.classList.add("active");
-        }
-      });
-    });
-  });
-</script>
+<!-- BOOTSTRAP 5.3 JS (Necesario para el Menú Hamburguesa Móvil y el ScrollSpy) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
