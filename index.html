@@ -4,1017 +4,440 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>José Samuel Puga Beltrán — Tech Lead</title>
-<!-- Metadatos Open Graph para redes sociales -->
+<meta name="description" content="José Samuel Puga Beltrán — Tech Lead. Liderazgo técnico, integración de sistemas y desarrollo de software.">
 <meta property="og:title" content="José Samuel Puga Beltrán — Tech Lead">
 <meta property="og:description" content="Más de 10 años liderando equipos y proyectos de software, arquitectura de sistemas y automatización.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://samuelpuga.com/">
-<meta name="description" content="José Samuel Puga Beltrán — Tech Lead. Liderazgo técnico, integración de sistemas y desarrollo de software.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg: #0d1826;
-    --bg-panel: #122238;
-    --bg-panel-2: #0f1e32;
-    --grid-line: rgba(143,163,191,0.09);
-    --border: rgba(143,163,191,0.16);
-    --text: #e9edf3;
-    --text-muted: #8fa3bf;
-    /* MEJORA 1: Contraste incrementado para WCAG AA (antes #5d7290) */
-    --text-dim: #7d93b3; 
-    --accent: #e8a33d;
-    --accent-dim: rgba(232,163,61,0.35);
-    --teal: #4fd1c5;
-    --font-display: 'Space Grotesk', sans-serif;
-    --font-body: 'Inter', sans-serif;
-    --font-mono: 'IBM Plex Mono', monospace;
-  }
+:root{
+  --bg:#ffffff; --soft:#f5f7fb; --ink:#101828; --muted:#4a5568; --dim:#667085;
+  --line:#e4e8f0; --accent:#2336d9; --accent-ink:#ffffff; --accent-soft:#eceefd;
+  --display:'Bricolage Grotesque',system-ui,sans-serif;
+  --body:'Figtree',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 28px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
 
-  *{ box-sizing: border-box; margin:0; padding:0; }
+/* Nav */
+.topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topbar-inner{max-width:1040px;margin:0 auto;padding:12px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-family:var(--display);font-weight:800;font-size:18px;text-decoration:none;letter-spacing:-.01em;white-space:nowrap}
+.brand span{color:var(--accent)}
+.nav{display:flex;align-items:center;gap:4px;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{text-decoration:none;font-size:14.5px;font-weight:500;color:var(--muted);padding:9px 13px;border-radius:999px;white-space:nowrap;transition:background .15s,color .15s}
+.nav a:hover{background:var(--soft);color:var(--ink)}
+.nav a.active{background:var(--accent-soft);color:var(--accent)}
+.nav a.cv{background:var(--ink);color:#fff;margin-left:6px}
+.nav a.cv:hover{background:var(--accent)}
 
-  html{ scroll-behavior: smooth; }
+/* Hero */
+.hero{padding:96px 0 72px}
+.status{display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:500;color:#067647;background:#ecfdf3;border:1px solid #abefc6;padding:6px 14px;border-radius:999px;margin-bottom:28px}
+.status::before{content:"";width:8px;height:8px;border-radius:50%;background:#12b76a;animation:pulse 2.4s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(18,183,106,.5)}100%{box-shadow:0 0 0 10px rgba(18,183,106,0)}}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(46px,8.4vw,96px);line-height:.98;letter-spacing:-.035em;max-width:900px}
+.role-line{margin-top:22px;font-size:19px;font-weight:500;color:var(--accent)}
+.pitch{margin-top:20px;max-width:640px;color:var(--muted);font-size:18px}
+.cta{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15.5px;padding:14px 26px;border-radius:12px;text-decoration:none;transition:transform .15s,background .15s,border-color .15s}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{background:#1a29b3;transform:translateY(-1px)}
+.btn-ghost{border:1.5px solid var(--line);color:var(--ink);background:#fff}
+.btn-ghost:hover{border-color:var(--ink)}
+.stats{margin-top:64px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));border:1px solid var(--line);border-radius:20px;background:var(--soft);overflow:hidden}
+.stat{padding:26px 28px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:none}
+.stat b{display:block;font-family:var(--display);font-weight:800;font-size:40px;line-height:1;letter-spacing:-.03em}
+.stat span{display:block;margin-top:8px;font-size:14.5px;color:var(--muted)}
 
-  body{
-    background:
-      linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0/48px 48px,
-      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0/48px 48px,
-      var(--bg);
-    color: var(--text);
-    font-family: var(--font-body);
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
-  }
+/* Sections */
+section{padding:84px 0;border-top:1px solid var(--line)}
+.sec-head{margin-bottom:44px;max-width:620px}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(30px,4.4vw,44px);letter-spacing:-.025em;line-height:1.1}
+.sec-head p{margin-top:12px;color:var(--muted)}
 
-  a{ color: inherit; }
+/* Timeline */
+.timeline{display:grid;gap:20px}
+.role{border:1px solid var(--line);border-radius:20px;padding:30px 32px;background:#fff;transition:border-color .2s,box-shadow .2s}
+.role:hover{border-color:#c7cdf5;box-shadow:0 10px 30px rgba(35,54,217,.07)}
+.role.current{border-color:#c7cdf5;background:linear-gradient(180deg,var(--accent-soft),#fff 70%)}
+.role-top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px 20px}
+.role-title{font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:-.015em;line-height:1.25}
+.role-dates{font-size:14.5px;font-weight:500;color:var(--dim);white-space:nowrap}
+.role-company{margin:4px 0 14px;font-weight:600;color:var(--accent)}
+.role-desc{color:var(--muted);max-width:720px}
+.bullets{list-style:none;display:grid;gap:14px;margin:6px 0 4px}
+.bullets li{padding-left:22px;position:relative;font-size:15.5px;color:var(--muted)}
+.bullets li::before{content:"";position:absolute;left:0;top:.7em;width:8px;height:2px;background:var(--accent)}
+.bullets li strong{color:var(--ink);font-weight:600}
+details{margin-top:12px}
+summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:10px;border:1px solid var(--line);font-weight:600;font-size:14.5px;color:var(--ink);user-select:none;transition:background .15s}
+summary:hover{background:var(--soft)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .2s}
+details[open] summary::after{transform:rotate(225deg) translateY(-2px)}
+details[open] summary{margin-bottom:16px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tag{font-size:13.5px;font-weight:500;padding:5px 12px;border-radius:999px;background:var(--soft);color:var(--muted);border:1px solid var(--line)}
 
-  .wrap{
-    max-width: 980px;
-    margin: 0 auto;
-    padding: 0 28px;
-  }
+/* Skills */
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.skill-group{background:var(--soft);border-radius:20px;padding:28px}
+.skill-group h3{font-family:var(--display);font-size:19px;font-weight:700}
+.skill-group .tags .tag{background:#fff}
 
-  /* ---------- Top bar ---------- */
-  .topbar{
-    position: sticky; top:0; z-index: 20;
-    background: rgba(13,24,38,0.86);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--border);
-  }
-  .topbar-inner{
-    max-width: 980px; margin:0 auto; padding: 14px 28px;
-    display:flex; align-items:center; justify-content: space-between;
-    font-family: var(--font-mono); font-size: 12.5px; color: var(--text-muted);
-  }
-  .topbar-inner .id{ color: var(--text); letter-spacing: 0.02em; flex-shrink: 0; }
-  .topbar-inner .id span{ color: var(--accent); }
-  .topbar-links{ display:flex; gap:20px; }
-  .topbar-links a{ text-decoration:none; color: var(--text-muted); transition: color .15s; }
-  .topbar-links a:hover, 
-  .topbar-links a.active { color: var(--accent); } /* Estado activo agregado */
-  
-  /* MEJORA 5: Grosor de focus a 2px para mejor accesibilidad de teclado */
-  .topbar-links a:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
+/* Projects */
+.project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.project{border:1px solid var(--line);border-radius:20px;padding:30px;display:flex;flex-direction:column;background:#fff;transition:border-color .2s,transform .2s,box-shadow .2s}
+.project:hover{border-color:#c7cdf5;transform:translateY(-3px);box-shadow:0 14px 34px rgba(16,24,40,.08)}
+.project h3{font-family:var(--display);font-size:21px;font-weight:700;letter-spacing:-.015em;line-height:1.25}
+.project .ctx{font-size:14.5px;font-weight:600;color:var(--accent);margin:4px 0 18px}
+.project h4{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.project p{font-size:15px;color:var(--muted);margin-bottom:14px}
+.project .tags{margin-top:auto;padding-top:6px}
 
-  /* ---------- Hero ---------- */
-  .hero{
-    padding: 92px 0 70px;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before{
-    content:"";
-    position:absolute; right: -120px; top: -80px;
-    width: 420px; height: 420px;
-    border: 1px solid var(--border);
-    border-radius: 50%;
-  }
-  .hero::after{
-    content:"";
-    position:absolute; right: -40px; top: 0;
-    width: 300px; height: 300px;
-    border: 1px solid var(--grid-line);
-    border-radius: 50%;
-  }
-  .eyebrow{
-    font-family: var(--font-mono); font-size: 12.5px; color: var(--accent);
-    letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 22px;
-    display:flex; align-items:center; gap: 10px;
-  }
-  .eyebrow::before{
-    content:""; width: 7px; height:7px; background: var(--accent); border-radius: 50%;
-    box-shadow: 0 0 0 4px var(--accent-dim);
-  }
-  h1{
-    font-family: var(--font-display); font-weight: 700;
-    font-size: clamp(38px, 6vw, 64px);
-    letter-spacing: -0.01em;
-    line-height: 1.04;
-    max-width: 780px;
-  }
-  .role-line{
-    margin-top: 18px;
-    font-family: var(--font-mono);
-    font-size: 15px;
-    color: var(--teal);
-    letter-spacing: 0.01em;
-  }
-  .role-line .sep{ color: var(--text-dim); margin: 0 8px; }
-  .pitch{
-    margin-top: 26px;
-    max-width: 620px;
-    color: var(--text-muted);
-    font-size: 16.5px;
-  }
-  .hero-cta{
-    margin-top: 38px;
-    display:flex; gap: 14px; flex-wrap: wrap;
-  }
-  .btn{
-    font-family: var(--font-mono); font-size: 13px;
-    padding: 12px 22px;
-    border-radius: 3px;
-    text-decoration: none;
-    display:inline-flex; align-items:center; gap:8px;
-    transition: all .15s ease;
-  }
-  .btn-primary{
-    background: var(--accent); color: #14202f; font-weight: 600;
-  }
-  .btn-primary:hover{ background: #f3b458; transform: translateY(-1px); }
-  .btn-ghost{
-    border: 1px solid var(--border); color: var(--text-muted);
-  }
-  .btn-ghost:hover{ border-color: var(--accent-dim); color: var(--text); }
-  
-  /* MEJORA 5: Grosor de focus a 2px */
-  .btn:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
+/* Proyectos de pruebas (tarjetas que enlazan a otra página) */
+a.project{text-decoration:none;color:inherit}
+a.project:focus-visible{outline-offset:4px;border-radius:20px}
+.project .open{display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-weight:600;font-size:15px;color:var(--accent)}
+.project .open::after{content:"";width:8px;height:8px;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:rotate(45deg);transition:transform .2s}
+a.project:hover .open::after{transform:rotate(45deg) translate(3px,-3px)}
 
-  /* ---------- Section shell ---------- */
-  section{ padding: 64px 0; border-top: 1px solid var(--border); }
-  .section-head{
-    display:flex; align-items: baseline; justify-content: space-between;
-    margin-bottom: 40px; gap: 20px; flex-wrap: wrap;
-  }
-  .section-num{
-    font-family: var(--font-mono); font-size: 12px; color: var(--text-dim);
-  }
-  h2{
-    font-family: var(--font-display); font-size: 26px; font-weight: 600;
-    letter-spacing: -0.005em;
-  }
+/* Education */
+.grid-2{display:grid;grid-template-columns:1fr 1.2fr;gap:56px}
+.block-title{font-family:var(--display);font-size:19px;font-weight:700;margin-bottom:16px}
+.edu .name{font-weight:600;font-size:17px}
+.edu .meta{color:var(--muted);font-size:15px}
+.certs{list-style:none;display:grid;gap:12px}
+.certs li{padding:16px 20px;border:1px solid var(--line);border-radius:14px;font-weight:500}
+.certs small{display:block;color:var(--dim);font-weight:400;font-size:13.5px;margin-top:2px}
 
-  /* ---------- Timeline / pipeline ---------- */
-  .pipeline{ position: relative; }
-  .pipeline::before{
-    content:"";
-    position:absolute; left: 5px; top: 8px; bottom: 8px;
-    width: 1px;
-    background: repeating-linear-gradient(
-      to bottom, var(--accent-dim) 0 6px, transparent 6px 12px
-    );
-  }
-  .role{
-    position: relative;
-    padding: 0 0 46px 42px;
-  }
-  .role:last-child{ padding-bottom: 0; }
-  .role::before{
-    content:"";
-    position:absolute; left: 0; top: 4px;
-    width: 11px; height: 11px;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 2px solid var(--accent);
-  }
-  .role.current::before{
-    box-shadow: 0 0 0 5px var(--accent-dim);
-  }
-  .role-top{
-    display:flex; align-items:baseline; justify-content: space-between;
-    flex-wrap: wrap; gap: 8px 20px;
-    margin-bottom: 6px;
-  }
-  .role-title{
-    font-family: var(--font-display); font-size: 19px; font-weight: 600;
-  }
-  .role-dates{
-    font-family: var(--font-mono); font-size: 12px; color: var(--text-dim);
-    white-space: nowrap;
-  }
-  .role-company{
-    font-family: var(--font-mono); font-size: 13px; color: var(--teal);
-    margin-bottom: 12px;
-  }
-  .role-desc{ color: var(--text-muted); font-size: 15px; margin-bottom: 14px; max-width: 680px; }
-  .role-bullets{ list-style:none; display:grid; gap:7px; margin-bottom: 16px; }
-  .role-bullets li{
-    font-size: 14px; color: var(--text); padding-left: 16px; position: relative;
-  }
-  .role-bullets li::before{
-    content:"–"; position:absolute; left:0; color: var(--text-dim);
-  }
-  .tags{ display:flex; flex-wrap: wrap; gap: 7px; }
-  .tag{
-    font-family: var(--font-mono); font-size: 11.5px;
-    padding: 4px 9px; border-radius: 3px;
-    border: 1px solid var(--border); color: var(--text-muted);
-  }
-  details{ margin-top: 4px; }
-  
-  /* MEJORA 3: Área de toque extendida a ~44px para móviles (Padding agregado) */
-  summary{
-    cursor: pointer; font-family: var(--font-mono); font-size: 12px;
-    color: var(--accent); list-style: none; user-select: none;
-    display:inline-flex; align-items:center; gap:6px;
-    padding: 12px 10px;
-    margin-left: -10px; /* Compensa visualmente el padding */
-    border-radius: 4px;
-    transition: background 0.2s;
-  }
-  summary:hover { background: rgba(232,163,61,0.05); }
-  summary:focus-visible { outline: 2px solid var(--accent); }
-  summary::-webkit-details-marker{ display:none; }
-  summary::before{ content:"+"; font-size: 14px; }
-  details[open] summary::before{ content:"–"; }
-  details .role-bullets{ margin-top: 4px; }
+/* Contact */
+footer{padding:84px 0 56px;border-top:1px solid var(--line);background:var(--soft)}
+.contact-grid{margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.contact-card{display:block;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px;transition:border-color .2s,transform .2s}
+a.contact-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.contact-card .label{font-size:13.5px;color:var(--dim);margin-bottom:4px}
+.contact-card .value{font-weight:600;overflow-wrap:anywhere}
+.foot-note{margin-top:56px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:14px;color:var(--dim)}
 
-  /* ---------- Projects ---------- */
-  .edit-note{
-    font-family: var(--font-mono); font-size: 12px; color: var(--accent);
-    background: rgba(232,163,61,0.08); border: 1px dashed var(--accent-dim);
-    border-radius: 4px; padding: 10px 14px; margin-bottom: 32px; max-width: 680px;
-  }
-  .project-grid{
-    display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 22px;
-  }
-  
-  /* MEJORA 4: Se asegura que el project-card se comporte bien como etiqueta <a> */
-  .project-card{
-    background: var(--bg-panel);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 26px 26px 24px;
-    display:flex; flex-direction: column;
-    text-decoration: none; /* Previene subrayado en el enlace completo */
-    color: inherit;
-    transition: border-color .15s, transform .15s;
-  }
-  .project-card:hover{ border-color: var(--accent-dim); transform: translateY(-2px); }
-  .project-card:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
-  .project-index{
-    font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
-    margin-bottom: 10px;
-  }
-  .project-title{
-    font-family: var(--font-display); font-size: 18px; font-weight: 600;
-    margin-bottom: 4px;
-  }
-  .project-context{
-    font-family: var(--font-mono); font-size: 12px; color: var(--teal);
-    margin-bottom: 16px;
-  }
-  .project-field{ margin-bottom: 12px; }
-  .project-field:last-of-type{ margin-bottom: 16px; }
-  .project-field .f-label{
-    font-family: var(--font-mono); font-size: 10.5px; color: var(--text-dim);
-    text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 4px;
-  }
-  .project-field .f-value{ font-size: 14px; color: var(--text-muted); }
-  .project-card .tags{ margin-top: auto; }
+/* Floating buttons */
+.fab{position:fixed;right:24px;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;z-index:1000}
+#chat-button{bottom:24px;background:var(--accent);color:#fff;font-size:20px;box-shadow:0 8px 24px rgba(35,54,217,.35);transition:transform .15s}
+#chat-button:hover{transform:scale(1.07)}
+#to-top-button{bottom:84px;background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:0 4px 14px rgba(16,24,40,.1);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .2s,transform .2s,visibility .2s}
+#to-top-button.visible{opacity:1;visibility:visible;transform:none}
+#to-top-button svg{width:18px;height:18px}
+#chat-container{position:fixed;bottom:84px;right:24px;width:370px;max-width:calc(100vw - 32px);height:490px;max-height:calc(100vh - 140px);background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 60px rgba(16,24,40,.2);display:none;flex-direction:column;overflow:hidden;z-index:1001}
+#chat-header{padding:16px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}
+#chat-header h3{font-family:var(--display);font-size:16px;font-weight:700}
+#close-btn{width:36px;height:36px;border:none;background:none;font-size:22px;color:var(--dim);cursor:pointer;border-radius:8px}
+#close-btn:hover{background:var(--soft);color:var(--ink)}
+#chat-box{flex:1;padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;background:var(--soft)}
+.message{max-width:82%;padding:10px 14px;border-radius:16px;font-size:14.5px;line-height:1.45;overflow-wrap:anywhere}
+.message.user{background:var(--accent);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.message.bot{background:#fff;border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px}
+#input-container{display:flex;gap:8px;padding:14px;border-top:1px solid var(--line)}
+#user-input{flex:1;padding:11px 14px;border:1px solid var(--line);border-radius:12px;font:inherit;font-size:14.5px;color:var(--ink)}
+#user-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+#input-container button{padding:0 18px;background:var(--accent);color:#fff;border:none;border-radius:12px;font:inherit;font-weight:600;cursor:pointer}
+#input-container button:hover{background:#1a29b3}
 
-  /* ---------- Skills ---------- */
-  .skill-grid{
-    display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 28px;
-  }
-  .skill-group{
-    background: var(--bg-panel);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 20px 22px;
-  }
-  .skill-group h3{
-    font-family: var(--font-mono); font-size: 11.5px; color: var(--text-dim);
-    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px;
-  }
-  .skill-group .tags .tag{ border-color: rgba(143,163,191,0.22); }
-
-  /* ---------- Education / certs / lang ---------- */
-  .grid-2{
-    display:grid; grid-template-columns: 1.2fr 1fr; gap: 40px;
-  }
-  .block-title{
-    font-family: var(--font-mono); font-size: 11.5px; color: var(--text-dim);
-    text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px;
-  }
-  .edu-item{ margin-bottom: 18px; }
-  .edu-item .name{ font-family: var(--font-display); font-size: 16px; font-weight: 600; }
-  .edu-item .meta{ font-family: var(--font-mono); font-size: 12.5px; color: var(--text-muted); margin-top: 3px; }
-  .cert-list{ list-style:none; display:grid; gap: 12px; }
-  .cert-list li{ font-size: 14px; color: var(--text-muted); padding-left: 16px; position: relative; }
-  .cert-list li::before{ content:"▪"; position:absolute; left:0; color: var(--accent); font-size: 10px; top:5px; }
-  .cert-list .cert-id{ font-family: var(--font-mono); font-size: 11.5px; color: var(--text-dim); display:block; }
-
-  /* ---------- Footer / contact ---------- */
-  footer{
-    padding: 70px 0 60px;
-    border-top: 1px solid var(--border);
-  }
-  .contact-cta h2{ max-width: 520px; }
-  .contact-grid{
-    margin-top: 32px;
-    display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-    gap: 18px;
-  }
-  .contact-card{
-    border: 1px solid var(--border); border-radius: 4px; padding: 18px 20px;
-    text-decoration: none; transition: border-color .15s, transform .15s;
-    display: block;
-  }
-  .contact-card:hover{ border-color: var(--accent-dim); transform: translateY(-2px); }
-  .contact-card:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
-  .contact-card .label{
-    font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
-    text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;
-  }
-  .contact-card .value{ font-family: var(--font-display); font-size: 15px; }
-  .foot-note{
-    margin-top: 50px; font-family: var(--font-mono); font-size: 11.5px; color: var(--text-dim);
-    display:flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
-  }
-
-  /* MEJORA 2: Se habilita scroll horizontal en móviles (en lugar de ocultar enlaces) */
-  @media (max-width: 720px){
-    .grid-2{ grid-template-columns: 1fr; }
-    
-    .topbar-links{
-      gap: 16px;
-      overflow-x: auto;
-      white-space: nowrap; /* Evita que los enlaces salten de línea */
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 4px;
-    }
-    /* Oculta la barra de desplazamiento estética pero mantiene la funcionalidad */
-    .topbar-links::-webkit-scrollbar { display: none; }
-    .topbar-links { -ms-overflow-style: none; scrollbar-width: none; }
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    html{ scroll-behavior: auto; }
-  }
-  
-  /* ---------- Chat widget (integrado al tema) ---------- */
-  #chat-button {
-    position: fixed;
-    bottom: 24px; right: 24px;
-    width: 44px; height: 44px;
-    background: var(--accent);
-    color: #14202f;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
-    cursor: pointer;
-    box-shadow: 0 6px 20px rgba(232,163,61,0.28);
-    transition: transform .15s ease, box-shadow .15s ease;
-    z-index: 1000;
-    border: none;
-  }
-  #chat-button:hover{ transform: scale(1.06); box-shadow: 0 8px 24px rgba(232,163,61,0.38); }
-  #chat-button:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
-
-  #chat-container {
-    position: fixed;
-    bottom: 80px; right: 24px;
-    width: 360px; max-width: calc(100vw - 32px);
-    height: 480px; max-height: calc(100vh - 140px);
-    background: var(--bg-panel);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    box-shadow: 0 16px 40px rgba(0,0,0,0.45);
-    display: none;
-    flex-direction: column;
-    overflow: hidden;
-    z-index: 1000;
-    background-image:
-      linear-gradient(var(--grid-line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
-
-  #chat-header {
-    background: var(--bg-panel-2);
-    color: var(--text);
-    padding: 14px 18px;
-    display: flex; justify-content: space-between; align-items: center;
-    border-bottom: 1px solid var(--border);
-  }
-  #chat-header h3 {
-    margin: 0; font-family: var(--font-mono); font-size: 12px;
-    letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted);
-    font-weight: 500; display:flex; align-items:center; gap:8px;
-  }
-  #chat-header h3::before{
-    content:""; width:7px; height:7px; border-radius:50%;
-    background: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim);
-  }
-  #close-btn {
-    cursor: pointer; font-size: 18px; color: var(--text-dim); line-height: 1;
-    width: 26px; height: 26px; display:flex; align-items:center; justify-content:center;
-    border-radius: 4px; transition: color .15s, background .15s;
-  }
-  #close-btn:hover { color: var(--accent); background: rgba(232,163,61,0.08); }
-
-  #chat-box {
-    flex: 1;
-    padding: 18px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .message {
-    max-width: 78%;
-    padding: 10px 13px;
-    border-radius: 4px;
-    font-family: var(--font-body);
-    font-size: 13.5px;
-    line-height: 1.45;
-    word-wrap: break-word;
-  }
-  .message.user {
-    background: var(--accent);
-    color: #14202f;
-    align-self: flex-end;
-    border-bottom-right-radius: 2px;
-    font-weight: 500;
-  }
-  .message.bot {
-    background: var(--bg-panel-2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    align-self: flex-start;
-    border-bottom-left-radius: 2px;
-  }
-
-  #input-container {
-    display: flex;
-    padding: 14px;
-    background: var(--bg-panel-2);
-    border-top: 1px solid var(--border);
-    gap: 8px;
-  }
-  #user-input {
-    flex: 1;
-    padding: 10px 13px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    outline: none;
-    color: var(--text);
-    font-family: var(--font-body);
-    font-size: 13.5px;
-  }
-  #user-input::placeholder{ color: var(--text-dim); }
-  #user-input:focus { border-color: var(--accent-dim); }
-
-  #input-container button {
-    padding: 10px 16px;
-    background: var(--accent);
-    color: #14202f;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: var(--font-mono);
-    font-weight: 600;
-    font-size: 12.5px;
-    transition: background .15s;
-  }
-  #input-container button:hover { background: #f3b458; }
-  #input-container button:focus-visible{ outline: 2px solid var(--text); outline-offset: 2px; }
-
-  @media (max-width: 480px){
-    #chat-container{ right: 16px; bottom: 72px; }
-    #chat-button{ right: 16px; bottom: 16px; }
-  }
-
-  /* ---------- Botón "volver arriba" ---------- */
-  #to-top-button{
-    position: fixed;
-    bottom: 82px; right: 24px;
-    width: 44px; height: 44px;
-    background: var(--bg-panel);
-    color: var(--text-muted);
-    border: 1px solid var(--border);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    z-index: 999;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: opacity .2s ease, transform .2s ease, visibility .2s, border-color .15s, color .15s;
-  }
-  #to-top-button.visible{
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-  #to-top-button:hover{
-    border-color: var(--accent-dim);
-    color: var(--accent);
-  }
-  #to-top-button:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
-  #to-top-button svg{ width: 17px; height: 17px; }
-
-  @media (max-width: 480px){
-    #to-top-button{ right: 16px; bottom: 68px; width: 44px; height: 44px; }
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    #to-top-button{ transition: opacity .01s, visibility .01s; }
-  }
+@media (max-width:760px){
+  .wrap,.topbar-inner{padding-left:20px;padding-right:20px}
+  .hero{padding:56px 0 48px}
+  section{padding:60px 0}
+  .grid-2{grid-template-columns:1fr;gap:40px}
+  .role{padding:24px 22px}
+  .stat{border-right:none;border-bottom:1px solid var(--line)}
+  .stat:last-child{border-bottom:none}
+  .brand{display:none}
+  .fab{right:16px}
+  #chat-container{right:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .status::before{animation:none}
+  *{transition-duration:.01s!important}
+}
 </style>
 </head>
 <body>
 
-<div class="topbar">
+<header class="topbar">
   <div class="topbar-inner">
-    <div class="id">JSPB<span>_</span>2026</div>
-    <div class="topbar-links">
+    <a class="brand" href="#inicio">Samuel Puga<span>.</span></a>
+    <nav class="nav" aria-label="Principal">
       <a href="#experiencia">Experiencia</a>
       <a href="#habilidades">Habilidades</a>
       <a href="#proyectos">Proyectos</a>
+      <a href="#pruebas">Practica</a>
       <a href="#educacion">Educación</a>
       <a href="#contacto">Contacto</a>
-	  <a href="/CV-Samuel-Puga.pdf" target="_blank" style="color: var(--accent);">Descargar CV</a>
-    </div>
+      <a class="cv" href="/CV-Samuel-Puga.pdf" target="_blank" rel="noopener">Descargar CV</a>
+    </nav>
   </div>
-</div>
+</header>
 
-<div class="wrap">
+<main class="wrap">
 
-  <section class="hero" id="inicio" style="border-top:none;">
-    <div class="eyebrow">Disponible para nuevos retos</div>
-    <h1>José Samuel<br>Puga Beltrán</h1>
-    <div class="role-line">Tech Lead <span class="sep">|</span> IT Manager &amp; Software Architect <span class="sep">|</span> Business Intelligence</div>
-    <p class="pitch">
-      Tech Lead con visión de negocio. Mi especialidad es conectar la estrategia de los directivos con la ejecución técnica del equipo de ingeniería. Experiencia comprobada liderando la adopción ágil (Scrum), diseñando infraestructuras de datos (ETL/BI) y desarrollando arquitecturas omnicanal integradas al core del negocio (SAP).
-    </p>
-    <div class="hero-cta">
+  <section class="hero" id="inicio" style="border-top:none">
+    <div class="status">Disponible para nuevos retos</div>
+    <h1>José Samuel Puga Beltrán</h1>
+    <p class="role-line">Tech Lead · IT Manager y Software Architect · Business Intelligence</p>
+    <p class="pitch">Conecto la estrategia de los directivos con la ejecución técnica del equipo de ingeniería. Lidero la adopción ágil (Scrum), diseño infraestructuras de datos (ETL/BI) y desarrollo arquitecturas omnicanal integradas al core del negocio (SAP).</p>
+    <div class="cta">
       <a class="btn btn-primary" href="mailto:samuelpugab@hotmail.com">Escribir un correo</a>
-      <a class="btn btn-ghost" href="/CV-Samuel-Puga.pdf" target="_blank" rel="noopener">Descargar CV ↓</a>
+      <a class="btn btn-ghost" href="/CV-Samuel-Puga.pdf" target="_blank" rel="noopener">Descargar CV</a>
+    </div>
+    <div class="stats" role="list">
+      <div class="stat" role="listitem"><b>10+</b><span>años en tecnología</span></div>
+      <div class="stat" role="listitem"><b>100+</b><span>módulos en una plataforma web central</span></div>
+      <div class="stat" role="listitem"><b>3</b><span>apps móviles sobre API propia</span></div>
+      <div class="stat" role="listitem"><b>30+</b><span>sistemas validados en un core bancario</span></div>
     </div>
   </section>
 
   <section id="experiencia">
-    <div class="section-head">
+    <div class="sec-head">
       <h2>Experiencia profesional</h2>
-      <div class="section-num">01 — trayectoria</div>
+      <p>De soporte nivel 3 a liderazgo técnico: una trayectoria construida sobre código, datos y equipos.</p>
     </div>
+    <div class="timeline">
 
-    <div class="pipeline">
-
-      <div class="role current">
-        <div class="role-top">
-          <div class="role-title">Tech Lead</div>
-          <div class="role-dates">Feb 2025 — Actual</div>
-        </div>
+      <article class="role current">
+        <div class="role-top"><h3 class="role-title">Tech Lead</h3><span class="role-dates">Feb 2025 — Actual</span></div>
         <div class="role-company">Afore Coppel S.A. de C.V.</div>
-        <p class="role-desc">
-          Liderazgo técnico al equipo de desarrollo, transformando requerimientos funcionales y necesidades de
-          negocio en soluciones tecnológicas viables, mantenibles y alineadas con estándares de calidad y arquitectura.
-        </p>
+        <p class="role-desc">Liderazgo técnico al equipo de desarrollo, transformando requerimientos funcionales y necesidades de negocio en soluciones viables, mantenibles y alineadas con estándares de calidad y arquitectura.</p>
         <details>
           <summary>Ver responsabilidades</summary>
-          <ul class="role-bullets">
-            <li>Arquitectura de Soluciones y Análisis de Impacto: Diseño y documento la arquitectura técnica y topología de sistemas, diagramando flujos e infraestructura (utilizando Mermaid.js y draw.io) para visualizar la afectación en servidores, definir el stack tecnológico y orquestar la creación de nuevos componentes.</li>
-            <li>Liderazgo Técnico y Adopción Ágil (Scrum): Lidero técnica y operativamente una célula de desarrollo, actuando como pilar en la transición de la empresa hacia la metodología Scrum. Resolviendo bloqueos técnicos diarios y garantizando el cumplimiento de los KPIs de entrega (velocidad y objetivos del sprint).</li>
-            <li>Alineación Negocio-Tecnología: Actúo como puente estratégico colaborando directamente con el Product Owner y el Scrum Master para refinar Historias de Usuario (HU), traduciendo necesidades comerciales en requerimientos técnicos viables y optimizando la estrategia de ataque del sprint.</li>
-            <li>Gestión de Talento y Continuidad Operativa: Mentoreo al equipo de ingeniería, supervisando su desarrollo profesional (capacitaciones) y calidad de código. Mantengo un perfil hands-on, desarrollando componentes críticos para asegurar la continuidad de las entregas ante contingencias o ausencias.</li>
-            <li>Gobierno de Infraestructura: Soy owner de dos servidores críticos asignados, garantizando su estabilidad, cumplimiento de normativas de las áreas operativas y generación de documentación técnica de alto nivel.</li>
+          <ul class="bullets">
+            <li><strong>Arquitectura de soluciones y análisis de impacto.</strong> Diseño y documento la arquitectura técnica y topología de sistemas, diagramando flujos e infraestructura (Mermaid.js y draw.io) para visualizar la afectación en servidores, definir el stack y orquestar nuevos componentes.</li>
+            <li><strong>Liderazgo técnico y adopción ágil (Scrum).</strong> Lidero técnica y operativamente una célula de desarrollo y soy pilar en la transición de la empresa a Scrum. Resuelvo bloqueos diarios y garantizo los KPIs de entrega (velocidad y objetivos del sprint).</li>
+            <li><strong>Alineación negocio-tecnología.</strong> Colaboro con el Product Owner y el Scrum Master para refinar Historias de Usuario, traduciendo necesidades comerciales en requerimientos técnicos viables.</li>
+            <li><strong>Gestión de talento y continuidad operativa.</strong> Mentoreo al equipo, superviso su desarrollo profesional y la calidad del código. Mantengo un perfil hands-on para asegurar entregas ante contingencias o ausencias.</li>
+            <li><strong>Gobierno de infraestructura.</strong> Soy owner de dos servidores críticos: garantizo su estabilidad, el cumplimiento normativo y la documentación técnica.</li>
           </ul>
         </details>
-        <div class="tags">
-          <span class="tag">Liderazgo técnico</span>
-          <span class="tag">Scrum</span>
-          <span class="tag">Code review</span>
-          <span class="tag">Arquitectura</span>
-        </div>
-      </div>
+        <div class="tags"><span class="tag">Liderazgo técnico</span><span class="tag">Scrum</span><span class="tag">Code review</span><span class="tag">Arquitectura</span></div>
+      </article>
 
-      <div class="role">
-        <div class="role-top">
-          <div class="role-title">Coordinador de desarrollo</div>
-          <div class="role-dates">Mar 2019 — Feb 2025</div>
-        </div>
+      <article class="role">
+        <div class="role-top"><h3 class="role-title">Coordinador de desarrollo</h3><span class="role-dates">Mar 2019 — Feb 2025</span></div>
         <div class="role-company">Grupo Impulsora</div>
-        <p class="role-desc">
-          Coordinación y liderazgo del equipo de desarrollo a lo largo del ciclo de vida de proyectos de software,
-          combinando gestión de equipo con desarrollo directo de soluciones empresariales.
-        </p>
+        <p class="role-desc">Coordinación y liderazgo del equipo de desarrollo durante todo el ciclo de vida de los proyectos, combinando gestión de equipo con desarrollo directo de soluciones empresariales.</p>
         <details>
           <summary>Ver responsabilidades</summary>
-          <ul class="role-bullets">
-            <li>Transformación Digital y Liderazgo de IT: Lideré la modernización tecnológica de la empresa desde cero, fundando y escalando el departamento de desarrollo. Dirigí el reclutamiento, mentoring y gestión del equipo técnico, y evangelicé a las gerencias para migrar procesos críticos y aislados en Excel hacia un ecosistema web estandarizado.</li>
-            <li>Arquitectura de Sistemas & Integración Empresarial (SAP): Diseñé, tomé decisiones de stack (PHP/Laravel) y desarrollé un ecosistema omnicanal de cero, entregando una plataforma web central (con más de 100 módulos) y 3 aplicaciones móviles (React-Native) consumiendo una API REST propia. Todo integrado de forma segura y bidireccional al core de SAP Business One mediante DI API y consultas directas.</li>
-            <li>Ingeniería de Datos y Business Intelligence: Conceptualicé y construí la infraestructura de análisis de datos para la toma de decisiones directivas, diseñando un Data Warehouse alimentado por procesos ETL creados a la medida y visualizado a través de tableros dinámicos en QlikSense.</li>
-            <li>Implementación de Cultura Ágil (Scrum): Fui el catalizador principal para la adopción de la metodología Scrum en la organización, resolviendo problemas históricos de definición de alcance y tiempos de entrega. Capacité técnica y metodológicamente tanto al equipo de desarrollo como a los nuevos roles de gestión (Product Owners/Scrum Masters).</li>
-            <li>Gestión Operativa y Soporte Nivel 3: Mantuve el gobierno total sobre la arquitectura tecnológica, garantizando la alta disponibilidad de las aplicaciones y encabezando el diagnóstico y resolución de incidencias de código complejas escaladas por la mesa de ayuda.</li>
+          <ul class="bullets">
+            <li><strong>Transformación digital y liderazgo de IT.</strong> Lideré la modernización tecnológica desde cero: fundé y escalé el departamento de desarrollo, dirigí reclutamiento y mentoring, y convencí a las gerencias de migrar procesos críticos en Excel a un ecosistema web estandarizado.</li>
+            <li><strong>Arquitectura e integración con SAP.</strong> Diseñé y desarrollé (PHP/Laravel) un ecosistema omnicanal: una plataforma web central con más de 100 módulos y 3 apps móviles (React Native) sobre una API REST propia, integradas de forma segura y bidireccional con SAP Business One mediante DI API y consultas directas.</li>
+            <li><strong>Ingeniería de datos y BI.</strong> Construí la infraestructura de análisis para decisiones directivas: un Data Warehouse alimentado por procesos ETL a la medida y tableros dinámicos en Qlik Sense.</li>
+            <li><strong>Cultura ágil (Scrum).</strong> Fui el catalizador de la adopción de Scrum, resolviendo problemas históricos de alcance y tiempos de entrega, y capacité al equipo y a los nuevos roles de Product Owner y Scrum Master.</li>
+            <li><strong>Operación y soporte nivel 3.</strong> Mantuve el gobierno de la arquitectura, garantizando alta disponibilidad y resolviendo incidencias complejas escaladas por la mesa de ayuda.</li>
           </ul>
         </details>
-        <div class="tags">
-          <span class="tag">PHP / Laravel</span>
-          <span class="tag">React Native</span>
-          <span class="tag">Python</span>
-          <span class="tag">SAP B1</span>
-          <span class="tag">Qlik Sense</span>
-          <span class="tag">ETL</span>
-        </div>
-      </div>
+        <div class="tags"><span class="tag">PHP / Laravel</span><span class="tag">React Native</span><span class="tag">Python</span><span class="tag">SAP B1</span><span class="tag">Qlik Sense</span><span class="tag">ETL</span></div>
+      </article>
 
-      <div class="role">
-        <div class="role-top">
-          <div class="role-title">QA Analyst</div>
-          <div class="role-dates">Jun 2018 — Mar 2019</div>
-        </div>
+      <article class="role">
+        <div class="role-top"><h3 class="role-title">QA Analyst</h3><span class="role-dates">Jun 2018 — Mar 2019</span></div>
         <div class="role-company">Neoris</div>
-        <p class="role-desc">
-          Aseguramiento de calidad funcional mediante definición, ejecución y seguimiento de pruebas de software
-          para proyectos de organizaciones como Cemex, Oxxo y Banco Popular de República Dominicana.
-        </p>
+        <p class="role-desc">Aseguramiento de calidad funcional con pruebas de software para proyectos de Cemex, Oxxo y Banco Popular de República Dominicana.</p>
         <details>
           <summary>Ver responsabilidades</summary>
-          <ul class="role-bullets">
-            <li>Aseguramiento de Calidad en Core Bancario (Banco Popular RD): Trabajé 6 meses de forma presencial validando una migración crítica del sistema core de créditos. Diseñé y ejecuté pruebas de integración y regresión en más de 30 sistemas para garantizar la continuidad operativa y mitigar riesgos de afectación tras la actualización del núcleo. </li>
-            <li>Despliegues Enterprise Internacionales (Oxxo & Cemex): Ejecuté los ciclos de pruebas funcionales para la implementación del sistema central de ventas durante la apertura de mercado de Oxxo en Perú. Adicionalmente, validé la integridad de un sistema de procesamiento y traducción de información corporativa para Cemex. </li>
-            <li>Ciclo de Vida de Pruebas (STLC): Fui responsable de la creación de planes y casos de prueba, ejecución exhaustiva de pruebas manuales sistemáticas y documentación de incidencias, asegurando que cada entrega cumpliera estrictamente con los requerimientos técnicos y de negocio. </li>
+          <ul class="bullets">
+            <li><strong>Core bancario (Banco Popular RD).</strong> Seis meses presenciales validando una migración crítica del core de créditos, con pruebas de integración y regresión en más de 30 sistemas.</li>
+            <li><strong>Despliegues internacionales (Oxxo y Cemex).</strong> Pruebas funcionales del sistema central de ventas en la apertura de Oxxo en Perú, y validación de un sistema de procesamiento y traducción de información corporativa para Cemex.</li>
+            <li><strong>Ciclo de vida de pruebas (STLC).</strong> Planes y casos de prueba, ejecución manual sistemática y documentación de incidencias contra requerimientos técnicos y de negocio.</li>
           </ul>
         </details>
-        <div class="tags">
-          <span class="tag">QA</span>
-          <span class="tag">Casos de prueba</span>
-          <span class="tag">Pruebas de usuario</span>
-        </div>
-      </div>
+        <div class="tags"><span class="tag">QA</span><span class="tag">Casos de prueba</span><span class="tag">Pruebas de usuario</span></div>
+      </article>
 
-      <div class="role">
-        <div class="role-top">
-          <div class="role-title">Analista de Control de Incidencias (L2/L3 Support)</div>
-          <div class="role-dates">Jun 2016 — Jun 2018</div>
-        </div>
+      <article class="role">
+        <div class="role-top"><h3 class="role-title">Analista de Control de Incidencias (L2/L3)</h3><span class="role-dates">Jun 2016 — Jun 2018</span></div>
         <div class="role-company">Coppel</div>
-        <p class="role-desc">
-          Diagnóstico de causa raíz en aplicaciones, código fuente y bases de datos para incidencias de segundo nivel
-          reportadas por mesa de ayuda.
-        </p>
+        <p class="role-desc">Diagnóstico de causa raíz en aplicaciones, código fuente y bases de datos para incidencias de segundo nivel reportadas por la mesa de ayuda.</p>
         <details>
           <summary>Ver responsabilidades</summary>
-          <ul class="role-bullets">
-            <li>Análisis de Causa Raíz en Producción (Troubleshooting): Gestioné el diagnóstico avanzado de incidencias críticas escaladas por la mesa de ayuda, identificando el origen de fallos a través de múltiples capas del sistema: problemas de conectividad, errores de despliegue, inconsistencias de bases de datos y fallos lógicos. </li>
-            <li>Ingeniería Inversa y Debugging: Analizaba y rastreaba flujos de ejecución en un promedio de 10 repositorios/sistemas distintos diariamente, procesando y diagnosticando alrededor de 8 incidencias de alta prioridad al día para su corrección precisa. </li>
-            <li>Integridad de Datos y Sistemas: Evaluaba el impacto de transacciones fallidas, actualizaciones de base de datos incorrectas (SQL Server, PostgreSQL) y errores de notas de producción, documentando los hallazgos detalladamente para el equipo de desarrollo y evitando la reincidencia de los errores.</li>
+          <ul class="bullets">
+            <li><strong>Análisis de causa raíz en producción.</strong> Diagnóstico de incidencias críticas en múltiples capas: conectividad, despliegues, bases de datos y lógica.</li>
+            <li><strong>Ingeniería inversa y debugging.</strong> Rastreo de flujos en unos 10 repositorios o sistemas al día y diagnóstico de cerca de 8 incidencias de alta prioridad diarias.</li>
+            <li><strong>Integridad de datos y sistemas.</strong> Evaluación del impacto de transacciones fallidas y actualizaciones incorrectas (SQL Server, PostgreSQL), con documentación para evitar reincidencias.</li>
           </ul>
         </details>
-        <div class="tags">
-          <span class="tag">C# / C++</span>
-          <span class="tag">SQL Server</span>
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">Diagnóstico</span>
-        </div>
-      </div>
+        <div class="tags"><span class="tag">C# / C++</span><span class="tag">SQL Server</span><span class="tag">PostgreSQL</span><span class="tag">Diagnóstico</span></div>
+      </article>
 
     </div>
   </section>
 
   <section id="habilidades">
-    <div class="section-head">
-      <h2>Habilidades técnicas</h2>
-      <div class="section-num">02 — stack</div>
-    </div>
+    <div class="sec-head"><h2>Habilidades técnicas</h2></div>
     <div class="skill-grid">
-      <div class="skill-group">
-        <h3>Lenguajes &amp; frameworks</h3>
-        <div class="tags">
-          <span class="tag">PHP (Laravel)</span>
-          <span class="tag">Python</span>
-          <span class="tag">JavaScript</span>
-          <span class="tag">React Native</span>
-          <span class="tag">HTML5 / CSS3</span>
-          <span class="tag">C#</span>
-          <span class="tag">C++</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h3>Datos &amp; plataformas</h3>
-        <div class="tags">
-          <span class="tag">SQL Server</span>
-          <span class="tag">PostgreSQL</span>
-          <span class="tag">Qlik Sense</span>
-          <span class="tag">SAP Business One</span>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h3>Prácticas &amp; herramientas</h3>
-        <div class="tags">
-          <span class="tag">Scrum</span>
-          <span class="tag">GitHub</span>
-          <span class="tag">Code review</span>
-          <span class="tag">APIs REST</span>
-          <span class="tag">ETL</span>
-        </div>
-      </div>
+      <div class="skill-group"><h3>Lenguajes y frameworks</h3>
+        <div class="tags"><span class="tag">PHP (Laravel)</span><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">React Native</span><span class="tag">HTML5 / CSS3</span><span class="tag">C#</span><span class="tag">C++</span></div></div>
+      <div class="skill-group"><h3>Datos y plataformas</h3>
+        <div class="tags"><span class="tag">SQL Server</span><span class="tag">PostgreSQL</span><span class="tag">Qlik Sense</span><span class="tag">SAP Business One</span></div></div>
+      <div class="skill-group"><h3>Prácticas y herramientas</h3>
+        <div class="tags"><span class="tag">Scrum</span><span class="tag">GitHub</span><span class="tag">Code review</span><span class="tag">APIs REST</span><span class="tag">ETL</span></div></div>
     </div>
   </section>
 
   <section id="proyectos">
-    <div class="section-head">
-      <h2>Proyectos destacados</h2>
-      <div class="section-num">03 — casos de estudio</div>
-    </div>
-
+    <div class="sec-head"><h2>Proyectos destacados</h2><p>Casos donde la tecnología resolvió un problema concreto del negocio.</p></div>
     <div class="project-grid">
-      
-      <!-- MEJORA 4: Los project-card ahora son enlaces reales (<a> en lugar de <div>) -->
-      <a href="#" class="project-card">
-        <div class="project-index">PROYECTO 01</div>
-        <div class="project-title">Integración con SAP Business One</div>
-        <div class="project-context">Grupo Impulsora</div>
-        <div class="project-field">
-          <div class="f-label">Objetivo</div>
-          <div class="f-value">Eliminar la captura duplicada de información entre el ERP y las aplicaciones internas del negocio.</div>
-        </div>
-        <div class="project-field">
-          <div class="f-label">Lo realizado</div>
-          <div class="f-value">Diseño e implementación de integraciones mediante el SDK DI API de SAP Business One, sincronizando datos entre sistemas en tiempo real.</div>
-        </div>
-        <div class="tags">
-          <span class="tag">SAP B1</span>
-          <span class="tag">SDK DI API</span>
-          <span class="tag">Integración</span>
-        </div>
-      </a>
+      <article class="project">
+        <h3>Integración con SAP Business One</h3><div class="ctx">Grupo Impulsora</div>
+        <h4>Objetivo</h4><p>Eliminar la captura duplicada de información entre el ERP y las aplicaciones internas.</p>
+        <h4>Lo realizado</h4><p>Integraciones con el SDK DI API de SAP Business One, sincronizando datos entre sistemas en tiempo real.</p>
+        <div class="tags"><span class="tag">SAP B1</span><span class="tag">SDK DI API</span><span class="tag">Integración</span></div>
+      </article>
+      <article class="project">
+        <h3>Tableros de inteligencia de negocios</h3><div class="ctx">Grupo Impulsora</div>
+        <h4>Objetivo</h4><p>Dar visibilidad a los indicadores clave para agilizar la toma de decisiones.</p>
+        <h4>Lo realizado</h4><p>Procesos ETL para extraer y transformar datos, y tableros interactivos en Qlik Sense.</p>
+        <div class="tags"><span class="tag">Qlik Sense</span><span class="tag">ETL</span><span class="tag">BI</span></div>
+      </article>
+      <article class="project">
+        <h3>Aplicación móvil con React Native</h3><div class="ctx">Grupo Impulsora</div>
+        <h4>Objetivo</h4><p>Llevar una solución empresarial clave a dispositivos móviles para el equipo de campo.</p>
+        <h4>Lo realizado</h4><p>App en React Native que consume APIs REST propias construidas en Laravel.</p>
+        <div class="tags"><span class="tag">React Native</span><span class="tag">Laravel</span><span class="tag">APIs REST</span></div>
+      </article>
+      <article class="project">
+        <h3>Automatización de procesos</h3><div class="ctx">Afore Coppel</div>
+        <h4>Objetivo</h4><p>Reducir el tiempo dedicado a tareas manuales de análisis y generación de reportes.</p>
+        <h4>Lo realizado</h4><p>Scripts en Python para automatizar procesos de negocio, con revisión técnica vía code review.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Automatización</span><span class="tag">Code review</span></div>
+      </article>
+    </div>
+  </section>
 
-      <a href="#" class="project-card">
-        <div class="project-index">PROYECTO 02</div>
-        <div class="project-title">Tableros de inteligencia de negocios</div>
-        <div class="project-context">Grupo Impulsora</div>
-        <div class="project-field">
-          <div class="f-label">Objetivo</div>
-          <div class="f-value">Dar visibilidad a indicadores clave del negocio para agilizar la toma de decisiones.</div>
-        </div>
-        <div class="project-field">
-          <div class="f-label">Lo realizado</div>
-          <div class="f-value">Diseño de procesos ETL para extracción y transformación de datos, y construcción de tableros interactivos en Qlik Sense.</div>
-        </div>
-        <div class="tags">
-          <span class="tag">Qlik Sense</span>
-          <span class="tag">ETL</span>
-          <span class="tag">BI</span>
-        </div>
+  <section id="pruebas">
+    <div class="sec-head"><h2>Proyectos de pruebas</h2><p>Experimentos y herramientas interactivas que construyo para practicar y probar ideas.</p></div>
+    <div class="project-grid">
+      <a class="project" href="simulador.html">
+        <h3>Simulador de crédito automotriz</h3><div class="ctx">Herramienta interactiva</div>
+        <h4>Objetivo</h4><p>Estimar la mensualidad de un crédito ajustando precio, enganche, plazo y tasa.</p>
+        <h4>Lo realizado</h4><p>Cálculo con amortización francesa, resultados en tiempo real y gráfica de enganche, capital e intereses.</p>
+        <div class="tags"><span class="tag">JavaScript</span><span class="tag">Chart.js</span><span class="tag">UI/UX</span></div>
+        <span class="open">Abrir simulador</span>
       </a>
-
-      <a href="#" class="project-card">
-        <div class="project-index">PROYECTO 03</div>
-        <div class="project-title">Aplicación móvil con React Native</div>
-        <div class="project-context">Grupo Impulsora</div>
-        <div class="project-field">
-          <div class="f-label">Objetivo</div>
-          <div class="f-value">Extender una solución empresarial clave a dispositivos móviles para el equipo de campo.</div>
-        </div>
-        <div class="project-field">
-          <div class="f-label">Lo realizado</div>
-          <div class="f-value">Desarrollo de la app con React Native, consumiendo APIs REST propias construidas en Laravel.</div>
-        </div>
-        <div class="tags">
-          <span class="tag">React Native</span>
-          <span class="tag">Laravel</span>
-          <span class="tag">APIs REST</span>
-        </div>
-      </a>
-
-      <a href="#" class="project-card">
-        <div class="project-index">PROYECTO 04</div>
-        <div class="project-title">Automatización de procesos</div>
-        <div class="project-context">Afore Coppel</div>
-        <div class="project-field">
-          <div class="f-label">Objetivo</div>
-          <div class="f-value">Reducir el tiempo dedicado a tareas manuales de análisis y generación de reportes.</div>
-        </div>
-        <div class="project-field">
-          <div class="f-label">Lo realizado</div>
-          <div class="f-value">Definición y validación de scripts en Python para automatizar procesos de negocio, con revisión técnica vía code review.</div>
-        </div>
-        <div class="tags">
-          <span class="tag">Python</span>
-          <span class="tag">Automatización</span>
-          <span class="tag">Code review</span>
-        </div>
-      </a>
-
     </div>
   </section>
 
   <section id="educacion">
-    <div class="section-head">
-      <h2>Educación &amp; formación</h2>
-      <div class="section-num">04 — trayectoria académica</div>
-    </div>
+    <div class="sec-head"><h2>Educación y formación</h2></div>
     <div class="grid-2">
-      <div>
+      <div class="edu">
         <div class="block-title">Educación</div>
-        <div class="edu-item">
-          <div class="name">Licenciatura en Informática</div>
-          <div class="meta">Universidad Autónoma de Sinaloa — 2012 / 2017</div>
-        </div>
-        <div class="block-title" style="margin-top:28px;">Idiomas</div>
-        <div class="tags"><span class="tag">Inglés — B1</span></div>
+        <div class="name">Licenciatura en Informática</div>
+        <div class="meta">Universidad Autónoma de Sinaloa · 2012 – 2017</div>
+        <div class="block-title" style="margin-top:36px">Idiomas</div>
+        <div class="tags" style="margin-top:0"><span class="tag">Inglés — B1</span></div>
       </div>
       <div>
-        <div class="block-title">Certificaciones &amp; formación complementaria</div>
-        <ul class="cert-list">
-          <li>Business Intelligence Foundation Professional Certification (BIFPC)
-            <span class="cert-id">CertiProf 2024 — 90980663</span>
-          </li>
-          <li>Scrum Foundation Professional Certification (SFPC)
-            <span class="cert-id">CertiProf 2024 — 90977799</span>
-          </li>
-          <li>Generative AI Leader
-            <span class="cert-id">Google Skills</span>
-          </li>
-		  <li>Google Professional Cloud Architect
-            <span class="cert-id">Google Skills (En curso)</span>
-          </li>
+        <div class="block-title">Certificaciones y formación complementaria</div>
+        <ul class="certs">
+          <li>Business Intelligence Foundation Professional Certification (BIFPC)<small>CertiProf 2024 — 90980663</small></li>
+          <li>Scrum Foundation Professional Certification (SFPC)<small>CertiProf 2024 — 90977799</small></li>
+          <li>Generative AI Leader<small>Google Skills</small></li>
+          <li>Google Professional Cloud Architect<small>Google Skills · En curso</small></li>
           <li>Constancia de habilidades gerenciales</li>
-          <li>Constancia de competencias — mandos medios</li>
+          <li>Constancia de competencias para mandos medios</li>
         </ul>
       </div>
     </div>
   </section>
+</main>
 
-  <footer id="contacto">
-    <div class="contact-cta">
-      <div class="section-num" style="margin-bottom:14px;">05 — contacto</div>
-      <h2>Ponte en contacto conmigo</h2>
-      <p class="pitch">Escríbeme, con gusto conversamos sobre el proyecto.</p>
-    </div>
+<footer id="contacto">
+  <div class="wrap">
+    <h2>Hablemos de tu proyecto</h2>
+    <p style="margin-top:12px;color:var(--muted)">Escríbeme y con gusto conversamos.</p>
     <div class="contact-grid">
-      <a class="contact-card" href="mailto:samuelpugab@hotmail.com">
-        <div class="label">Correo</div>
-        <div class="value">samuelpugab@hotmail.com</div>
-      </a>
-      <a class="contact-card" href="tel:+526672921255">
-        <div class="label">Teléfono</div>
-        <div class="value">(66) 72‑92‑12‑55</div>
-      </a>
-      <a class="contact-card" href="https://samuelpuga.wordpress.com" target="_blank" rel="noopener">
-        <div class="label">Blog</div>
-        <div class="value">samuelpuga.wordpress.com</div>
-      </a>
-      <div class="contact-card" style="cursor:default;">
-        <div class="label">Ubicación</div>
-        <div class="value">Culiacán, Sinaloa, MX</div>
-      </div>
+      <a class="contact-card" href="mailto:samuelpugab@hotmail.com"><div class="label">Correo</div><div class="value">samuelpugab@hotmail.com</div></a>
+      <a class="contact-card" href="tel:+526672921255"><div class="label">Teléfono</div><div class="value">(66) 72‑92‑12‑55</div></a>
+      <a class="contact-card" href="https://samuelpuga.wordpress.com" target="_blank" rel="noopener"><div class="label">Blog</div><div class="value">samuelpuga.wordpress.com</div></a>
+      <div class="contact-card"><div class="label">Ubicación</div><div class="value">Culiacán, Sinaloa, MX</div></div>
     </div>
-    <div class="foot-note">
-      <span>José Samuel Puga Beltrán</span>
-      <span>samuelpuga.com</span>
-    </div>
-  </footer>
+    <div class="foot-note"><span>© 2026 José Samuel Puga Beltrán</span><span>samuelpuga.com</span></div>
+  </div>
+</footer>
 
-<button id="to-top-button" onclick="scrollToTop()" aria-label="Volver arriba">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <line x1="12" y1="19" x2="12" y2="5"></line>
-    <polyline points="5 12 12 5 19 12"></polyline>
-  </svg>
+<button id="to-top-button" class="fab" onclick="scrollToTop()" aria-label="Volver arriba">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
 </button>
+<button id="chat-button" class="fab" onclick="toggleChat()" aria-label="Abrir chat">💬</button>
 
-<button id="chat-button" onclick="toggleChat()" aria-label="Abrir chat">💬</button>
-
-<!-- Ventana del chat -->
-<div id="chat-container">
-    <div id="chat-header">
-        <h3>Asistente virtual</h3>
-        <span id="close-btn" onclick="toggleChat()">×</span>
-    </div>
-    <div id="chat-box">
-        <div class="message bot">¡Hola! ¿En qué puedo ayudarte hoy?</div>
-    </div>
-    <div id="input-container">
-        <input type="text" id="user-input" placeholder="Escribe tu mensaje..." onkeypress="handleKeyPress(event)">
-        <button onclick="sendMessage()">Enviar</button>
-    </div>
+<div id="chat-container" role="dialog" aria-label="Asistente virtual">
+  <div id="chat-header"><h3>Asistente virtual</h3><button id="close-btn" onclick="toggleChat()" aria-label="Cerrar chat">×</button></div>
+  <div id="chat-box"><div class="message bot">¡Hola! ¿En qué puedo ayudarte hoy?</div></div>
+  <div id="input-container">
+    <input type="text" id="user-input" placeholder="Escribe tu mensaje…" aria-label="Mensaje" onkeypress="handleKeyPress(event)">
+    <button onclick="sendMessage()">Enviar</button>
+  </div>
 </div>
 
-
-</div>
 <script>
-    // Abre y cierra la ventana del chat
-    function toggleChat() {
-        const container = document.getElementById('chat-container');
-        if (container.style.display === 'none' || container.style.display === '') {
-            container.style.display = 'flex';
-        } else {
-            container.style.display = 'none';
-        }
-    }
+  // Ajusta esta URL a tu servidor Flask
+  const CHAT_API = 'http://127.0.0.1:5000/chat';
 
-    // Permite enviar el mensaje al presionar 'Enter'
-    function handleKeyPress(event) {
-        if (event.key === 'Enter') {
-            sendMessage();
-        }
-    }
-
-    // Envía el mensaje al backend de Python
-    async function sendMessage() {
-        const inputField = document.getElementById('user-input');
-        const message = inputField.value.trim();
-        if (!message) return;
-
-        appendMessage(message, 'user');
-        inputField.value = '';
-
-        try {
-            // Llama a tu servidor Flask local
-            const response = await fetch('http://127.0.0', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: message })
-            });
-            
-            const data = await response.json();
-            if (data.reply) {
-                appendMessage(data.reply, 'bot');
-            } else {
-                appendMessage('Error: No se pudo obtener respuesta del asistente.', 'bot');
-            }
-        } catch (error) {
-            console.error(error);
-            appendMessage('Error de conexión con el servidor.', 'bot');
-        }
-    }
-
-    // Agrega las burbujas de texto al contenedor
-    function appendMessage(text, sender) {
-        const chatBox = document.getElementById('chat-box');
-        const msgDiv = document.createElement('div');
-        msgDiv.className = `message ${sender}`;
-        msgDiv.innerText = text;
-        chatBox.appendChild(msgDiv);
-        chatBox.scrollTop = chatBox.scrollHeight; // Mantiene el scroll abajo
-    }
-</script>
-
-<script>
-  // Botón "volver arriba": aparece tras hacer scroll y sube suavemente al hacer clic
-  const toTopButton = document.getElementById('to-top-button');
-
-  function handleToTopVisibility(){
-    if (window.scrollY > 400){
-      toTopButton.classList.add('visible');
-    } else {
-      toTopButton.classList.remove('visible');
+  function toggleChat(){
+    const c = document.getElementById('chat-container');
+    c.style.display = (c.style.display === 'flex') ? 'none' : 'flex';
+    if (c.style.display === 'flex') document.getElementById('user-input').focus();
+  }
+  function handleKeyPress(e){ if (e.key === 'Enter') sendMessage(); }
+  async function sendMessage(){
+    const input = document.getElementById('user-input');
+    const message = input.value.trim();
+    if (!message) return;
+    appendMessage(message, 'user');
+    input.value = '';
+    try{
+      const r = await fetch(CHAT_API, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({message})});
+      const data = await r.json();
+      appendMessage(data.reply || 'No se pudo obtener respuesta del asistente.', 'bot');
+    }catch(err){
+      console.error(err);
+      appendMessage('No hay conexión con el servidor. Inténtalo de nuevo en unos minutos.', 'bot');
     }
   }
-  window.addEventListener('scroll', handleToTopVisibility);
-  handleToTopVisibility();
-
-  function scrollToTop(){
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  function appendMessage(text, sender){
+    const box = document.getElementById('chat-box');
+    const d = document.createElement('div');
+    d.className = 'message ' + sender;
+    d.textContent = text;
+    box.appendChild(d);
+    box.scrollTop = box.scrollHeight;
   }
-</script>
 
-<!-- MEJORA 6: Script para resaltar el enlace del menú según la sección visible (ScrollSpy) -->
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const sections = document.querySelectorAll("section, footer");
-    const navLinks = document.querySelectorAll(".topbar-links a");
+  // Volver arriba
+  const toTop = document.getElementById('to-top-button');
+  function scrollToTop(){ window.scrollTo({top:0, behavior:'smooth'}); }
+  addEventListener('scroll', () => toTop.classList.toggle('visible', scrollY > 400), {passive:true});
 
-    window.addEventListener("scroll", () => {
-      let current = "";
-      
-      sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
-        // Ajuste el threshold (150px) según cuando quieres que cambie de estado
-        if (scrollY >= sectionTop - 150) {
-          current = section.getAttribute("id");
-        }
-      });
-
-      navLinks.forEach((link) => {
-        link.classList.remove("active");
-        if (link.getAttribute("href") === `#${current}`) {
-          link.classList.add("active");
-        }
-      });
+  // Resalta el enlace de la sección visible
+  const links = document.querySelectorAll('.nav a[href^="#"]');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting){
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + en.target.id));
+      }
     });
-  });
+  }, {rootMargin:'-40% 0px -55% 0px'});
+  document.querySelectorAll('section[id], footer[id]').forEach(s => io.observe(s));
 </script>
-
 </body>
 </html>

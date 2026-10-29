@@ -1,0 +1,47 @@
+{
+  "restaurante": {
+    "nombre": "Sushio Oyin",
+    "slogan": "Sushi hecho al momento, directo a tu mesa",
+    "horario": { "texto": "Todos los días de 1:00 pm a 11:00 pm", "abre": 13, "cierra": 23 },
+    "whatsapp": "526672921255",
+    "mensajeWhatsapp": "Hola Sushio Oyin, quiero hacer un pedido:",
+    "direccion": "Paseos del Rey, C.P. 80180, Culiacán, Sinaloa",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Paseos+del+Rey+80180+Culiacan+Sinaloa",
+    "banner": ""
+  },
+  "categorias": [
+    {
+      "id": "sushi", "nombre": "Sushi",
+      "subcategorias": [
+        { "id": "empanizados", "nombre": "Empanizados", "platillos": [
+          { "nombre": "Oyin Roll", "descripcion": "Camarón empanizado, queso crema, aguacate y pepino, bañado en salsa anguila.", "precio": 150, "foto": "", "badge": "Favorito" },
+          { "nombre": "Crunch Roll", "descripcion": "Pollo empanizado, queso crema y aguacate, cubierto con tempura crujiente.", "precio": 140, "foto": "", "badge": "" },
+          { "nombre": "Tampico Roll", "descripcion": "Res empanizada, queso crema, cebollín y aderezo de chipotle.", "precio": 160, "foto": "", "badge": "Picante" }
+        ]},
+        { "id": "naturales", "nombre": "Naturales", "platillos": [
+          { "nombre": "California Roll", "descripcion": "Surimi, pepino y aguacate, envuelto en arroz y ajonjolí.", "precio": 110, "foto": "", "badge": "" },
+          { "nombre": "Philadelphia Roll", "descripcion": "Salmón fresco, queso crema y pepino, envuelto en arroz.", "precio": 130, "foto": "", "badge": "Nuevo" },
+          { "nombre": "Camarón Roll", "descripcion": "Camarón cocido, aguacate y pepino, con arroz y ajonjolí.", "precio": 120, "foto": "", "badge": "" }
+        ]},
+        { "id": "horneados", "nombre": "Horneados", "platillos": [
+          { "nombre": "Dragón Horneado", "descripcion": "Camarón y queso crema, gratinado con queso spicy y salsa anguila.", "precio": 170, "foto": "", "badge": "Favorito" },
+          { "nombre": "Volcán Roll", "descripcion": "Surimi, aguacate y queso, cubierto con mezcla de mariscos gratinada.", "precio": 165, "foto": "", "badge": "" },
+          { "nombre": "Cheese Roll", "descripcion": "Pollo, tocino y queso crema, gratinado con queso manchego.", "precio": 155, "foto": "", "badge": "" }
+        ]}
+      ]
+    },
+    {
+      "id": "bebidas", "nombre": "Bebidas",
+      "subcategorias": [
+        { "id": "te", "nombre": "Té", "platillos": [
+          { "nombre": "Té helado de limón", "descripcion": "Té negro frío con limón natural. Vaso de 500 ml.", "precio": 35, "foto": "", "badge": "" },
+          { "nombre": "Té helado de durazno", "descripcion": "Té negro frío con sabor a durazno. Vaso de 500 ml.", "precio": 35, "foto": "", "badge": "" }
+        ]},
+        { "id": "coca-cola", "nombre": "Coca-Cola", "platillos": [
+          { "nombre": "Coca-Cola", "descripcion": "Refresco de cola, botella de 355 ml, bien fría.", "precio": 30, "foto": "", "badge": "" },
+          { "nombre": "Coca-Cola Sin Azúcar", "descripcion": "Refresco de cola sin azúcar, botella de 355 ml.", "precio": 30, "foto": "", "badge": "" }
+        ]}
+      ]
+    }
+  ]
+}

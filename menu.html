@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sushi ToGo · Menú</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Shippori+Mincho:wght@600;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);--bg:#121212;--card:#1E1E1E;--line:#2e2e2e;--coral:#FF5C4D;--txt:#F4F0EA;--mut:#9a948c}
+html{scroll-padding-top:calc(116px + env(safe-area-inset-top,0px));scroll-behavior:smooth}
+body{background:radial-gradient(120% 60% at 50% 0,#1d1a19 0,#121212 60%) fixed,#121212;color:var(--txt);font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+.roll{font-family:'Shippori Mincho',Georgia,serif}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px}
+.chip{border:1px solid #3a3a3a;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--mut);transition:.15s}
+.chip[aria-pressed=true]{background:var(--coral);border-color:var(--coral);color:#fff}
+.tag{font-size:11px;padding:2px 8px;border-radius:999px;background:#2a2a2a;color:#cfc9c0}
+.tag.hot{background:rgba(255,92,77,.16);color:#ff8f84}
+.thumb{width:96px;height:96px;border-radius:16px;display:grid;place-items:center;font-size:40px}
+.sheet{transform:translateY(100%);transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+.open .sheet{transform:none}
+.scrim{opacity:0;pointer-events:none;transition:.2s}
+.open.scrim{opacity:1;pointer-events:auto}
+.nosb::-webkit-scrollbar{display:none}
+button:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body class="max-w-md mx-auto min-h-screen pb-32">
+
+<header class="sticky top-0 z-30 backdrop-blur-xl" style="background:rgba(18,18,18,.82);padding-top:env(safe-area-inset-top,0px);margin-top:calc(-1*env(safe-area-inset-top,0px))">
+  <div class="flex items-center justify-between px-5 pt-3 pb-2">
+    <div class="flex items-center gap-2">
+      <span class="roll text-2xl font-extrabold" style="color:var(--coral)">ToGo</span>
+      <span class="text-xs" style="color:var(--mut)">Sushi · Culiacán</span>
+    </div>
+    <span class="text-xs px-2.5 py-1 rounded-full" style="background:#1E1E1E;color:var(--mut)">Abierto hasta 10 pm</span>
+  </div>
+  <nav id="cats" class="nosb flex gap-2 overflow-x-auto px-5 pb-3" aria-label="Categorías"></nav>
+</header>
+
+<main id="menu" class="px-5 pt-2"></main>
+
+<!-- Carrito flotante -->
+<div id="bar" class="fixed left-0 right-0 z-30 px-4 hidden" style="bottom:calc(16px + env(safe-area-inset-bottom,0px))">
+  <button id="barBtn" class="max-w-md mx-auto w-full flex items-center justify-between rounded-2xl px-5 py-4 font-semibold text-white shadow-2xl" style="background:var(--coral)">
+    <span class="flex items-center gap-3"><span id="barQty" class="grid place-items-center w-7 h-7 rounded-full bg-white/25 text-sm"></span>Ver pedido</span>
+    <span id="barTotal"></span>
+  </button>
+</div>
+
+<!-- Scrim + sheets -->
+<div id="scrim" class="scrim fixed inset-0 z-40 bg-black/70"></div>
+
+<section id="detail" class="fixed inset-x-0 bottom-0 z-50 pointer-events-none" aria-hidden="true">
+  <div class="sheet max-w-md mx-auto rounded-t-3xl pointer-events-auto overflow-hidden" style="background:var(--card);padding-bottom:env(safe-area-inset-bottom,0px)">
+    <div id="dImg" class="h-64 grid place-items-center text-8xl relative">
+      <button data-close class="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/50 text-lg" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="p-5">
+      <h2 id="dName" class="roll text-2xl font-extrabold"></h2>
+      <div id="dTags" class="flex flex-wrap gap-1.5 mt-2"></div>
+      <p id="dDesc" class="mt-3 text-sm leading-relaxed" style="color:#cfc9c0"></p>
+      <div id="dSizes" class="flex gap-2 mt-4"></div>
+      <button id="dAdd" class="mt-5 w-full rounded-2xl py-3.5 font-semibold text-white" style="background:var(--coral)"></button>
+    </div>
+  </div>
+</section>
+
+<section id="cart" class="fixed inset-x-0 bottom-0 z-50 pointer-events-none" aria-hidden="true">
+  <div class="sheet max-w-md mx-auto rounded-t-3xl pointer-events-auto p-5 max-h-[85vh] overflow-y-auto" style="background:var(--card);padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="roll text-2xl font-extrabold">Tu pedido</h2>
+      <button data-close class="w-9 h-9 rounded-full bg-white/10" aria-label="Cerrar">✕</button>
+    </div>
+    <ul id="cList" class="divide-y" style="--tw-divide-opacity:1;border-color:var(--line)"></ul>
+    <div class="flex justify-between font-semibold text-lg mt-4"><span>Total</span><span id="cTotal"></span></div>
+    <button id="wa" class="mt-4 w-full rounded-2xl py-3.5 font-semibold text-white" style="background:#25a559">Pedir por WhatsApp</button>
+    <button id="clear" class="mt-2 w-full py-2 text-sm" style="color:var(--mut)">Vaciar pedido</button>
+  </div>
+</section>
+
+<script>
+const WA = "5216671234567"; // ← reemplaza con el número del restaurante
+const CATS = ["Rollos clásicos","Horneados","Sin arroz","Bebidas"];
+// s: [[etiqueta, precio], ...]. Sustituye "e" (emoji) por una foto: img:"url"
+const ITEMS = [
+ {id:1,c:0,n:"California",d:"Surimi, aguacate y pepino, envuelto en ajonjolí tostado.",t:["Popular"],e:"🍣",g:["#5b2a26","#2a1614"],s:[["7 pzas",129],["12 pzas",179]]},
+ {id:2,c:0,n:"Philadelphia",d:"Salmón fresco, queso crema y pepino.",t:["Popular","Con queso"],e:"🍥",g:["#6a3a22","#2c1a10"],s:[["7 pzas",139],["12 pzas",189]]},
+ {id:3,c:0,n:"Spicy Tuna",d:"Atún picado con mayonesa de chile y cebollín.",t:["🌶️ Spicy"],hot:1,e:"🌶️",g:["#6b1f1a","#2a0f0d"],s:[["7 pzas",149],["12 pzas",199]]},
+ {id:4,c:1,n:"Dragón Horneado",d:"Camarón, queso y aguacate gratinado con salsa de anguila.",t:["Horneado","Popular"],e:"🔥",g:["#5a3a14","#261a08"],s:[["7 pzas",159],["12 pzas",219]]},
+ {id:5,c:1,n:"Chiles Toreados",d:"Pollo, queso y chile toreado, gratinado al horno.",t:["Horneado","🌶️ Spicy"],hot:1,e:"🍤",g:["#4a2a1c","#201208"],s:[["7 pzas",149],["12 pzas",199]]},
+ {id:6,c:2,n:"Naruto de Salmón",d:"Salmón y aguacate envueltos en pepino. Sin arroz ni alga.",t:["Sin arroz","Ligero"],e:"🥒",g:["#1f4a3a","#10241d"],s:[["7 pzas",159],["12 pzas",209]]},
+ {id:7,c:3,n:"Té helado de jazmín",d:"Preparado en casa, sin azúcar añadida.",t:["Sin azúcar"],e:"🍵",g:["#2f4a2a","#16240f"],s:[["Vaso",45],["Jarra",110]]},
+ {id:8,c:3,n:"Limonada mineral",d:"Limón natural, agua mineral y hielo.",t:["Refrescante"],e:"🍋",g:["#5a5214","#262208"],s:[["Vaso",40],["Jarra",100]]}
+];
+const $=s=>document.querySelector(s), money=n=>"$"+n;
+const sel={}, cart={}; // sel: id→idx de tamaño; cart: "id|idx"→qty
+ITEMS.forEach(i=>sel[i.id]=0);
+let cur=null;
+
+const thumb=(i,cls)=>i.img?`<img src="${i.img}" alt="${i.n}" class="${cls} object-cover">`:`<div class="${cls}" style="background:linear-gradient(135deg,${i.g[0]},${i.g[1]})">${i.e}</div>`;
+const tagH=(i)=>i.t.map(t=>`<span class="tag ${t.includes("Spicy")?"hot":""}">${t}</span>`).join("");
+const sizesH=(i,ctx)=>i.s.map((s,k)=>`<button class="chip" data-size="${ctx}|${i.id}|${k}" aria-pressed="${sel[i.id]===k}">${s[0]} · ${money(s[1])}</button>`).join("");
+
+function render(){
+  $("#cats").innerHTML=CATS.map((c,k)=>`<button class="chip whitespace-nowrap" data-cat="${k}" aria-pressed="${k===0}">${c}</button>`).join("");
+  $("#menu").innerHTML=CATS.map((c,k)=>`
+    <section id="cat${k}" class="pt-5" data-sec="${k}">
+      <h2 class="roll text-xl font-extrabold mb-3">${c}</h2>
+      <div class="space-y-3">${ITEMS.filter(i=>i.c===k).map(cardH).join("")}</div>
+    </section>`).join("");
+}
+function cardH(i){return `
+ <article class="card p-3.5 flex gap-3" data-card="${i.id}">
+   <div class="flex-1 min-w-0 flex flex-col">
+     <h3 class="roll text-lg font-extrabold leading-tight">${i.n}</h3>
+     <p class="text-[13px] mt-1 line-clamp-2" style="color:var(--mut)">${i.d}</p>
+     <div class="flex flex-wrap gap-1.5 mt-2">${tagH(i)}</div>
+     <div class="flex flex-wrap gap-1.5 mt-3" data-sizes="${i.id}">${sizesH(i,"c")}</div>
+   </div>
+   <div class="relative shrink-0">
+     <button data-open="${i.id}" aria-label="Ver ${i.n}">${thumb(i,"thumb")}</button>
+     <button data-add="${i.id}" class="absolute -bottom-2 -right-2 w-9 h-9 rounded-full text-white text-xl font-bold shadow-lg" style="background:var(--coral)" aria-label="Agregar ${i.n}">+</button>
+   </div>
+ </article>`}
+
+function add(id,k=sel[id]){const key=id+"|"+k;cart[key]=(cart[key]||0)+1;sync();navigator.vibrate&&navigator.vibrate(10)}
+function lines(){return Object.entries(cart).filter(e=>e[1]>0).map(([key,q])=>{const[id,k]=key.split("|").map(Number);const i=ITEMS.find(x=>x.id===id);return{key,i,k,q,s:i.s[k]}})}
+function sync(){
+  const L=lines(),q=L.reduce((a,l)=>a+l.q,0),t=L.reduce((a,l)=>a+l.q*l.s[1],0);
+  $("#bar").classList.toggle("hidden",!q);
+  $("#barQty").textContent=q;$("#barTotal").textContent=money(t);$("#cTotal").textContent=money(t);
+  $("#cList").innerHTML=L.length?L.map(l=>`
+    <li class="py-3 flex items-center gap-3">
+      <div class="flex-1"><p class="roll font-extrabold">${l.i.n}</p><p class="text-xs" style="color:var(--mut)">${l.s[0]} · ${money(l.s[1])}</p></div>
+      <div class="flex items-center gap-2">
+        <button data-q="${l.key}|-1" class="w-8 h-8 rounded-full bg-white/10" aria-label="Quitar uno">−</button>
+        <span class="w-5 text-center text-sm font-semibold">${l.q}</span>
+        <button data-q="${l.key}|1" class="w-8 h-8 rounded-full" style="background:var(--coral)" aria-label="Agregar uno">+</button>
+      </div>
+    </li>`).join(""):`<li class="py-6 text-center text-sm" style="color:var(--mut)">Aún no agregas nada. Toca “+” en un rollo.</li>`;
+  if(!L.length&&$("#cart").classList.contains("open"))closeAll();
+}
+
+function openSheet(el){$("#scrim").classList.add("open");el.classList.add("open");el.setAttribute("aria-hidden","false");document.body.style.overflow="hidden"}
+function closeAll(){["#scrim","#detail","#cart"].forEach(s=>{$(s).classList.remove("open");});["#detail","#cart"].forEach(s=>$(s).setAttribute("aria-hidden","true"));document.body.style.overflow=""}
+function openDetail(id){
+  cur=ITEMS.find(i=>i.id===id);const i=cur;
+  $("#dImg").style.background=`linear-gradient(160deg,${i.g[0]},${i.g[1]})`;
+  $("#dImg").firstChild&&0;
+  $("#dImg").querySelectorAll(".big").forEach(n=>n.remove());
+  $("#dImg").insertAdjacentHTML("afterbegin",i.img?`<img class="big absolute inset-0 w-full h-full object-cover" src="${i.img}" alt="${i.n}">`:`<span class="big">${i.e}</span>`);
+  $("#dName").textContent=i.n;$("#dDesc").textContent=i.d;$("#dTags").innerHTML=tagH(i);
+  drawDetail();openSheet($("#detail"));
+}
+function drawDetail(){$("#dSizes").innerHTML=sizesH(cur,"d");$("#dAdd").textContent="Agregar al pedido · "+money(cur.s[sel[cur.id]][1])}
+
+document.addEventListener("click",e=>{
+  const t=e.target.closest("button");if(!t)return;
+  const d=t.dataset;
+  if(d.cat!==undefined)document.getElementById("cat"+d.cat).scrollIntoView();
+  else if(d.open)openDetail(+d.open);
+  else if(d.add){add(+d.add);t.textContent="✓";setTimeout(()=>t.textContent="+",600)}
+  else if(d.size){const[ctx,id,k]=d.size.split("|");sel[id]=+k;
+    const i=ITEMS.find(x=>x.id==id);$(`[data-sizes="${id}"]`).innerHTML=sizesH(i,"c");if(cur&&ctx==="d")drawDetail()}
+  else if(d.q){const[id,k,dl]=d.q.split("|");const key=id+"|"+k;cart[key]=Math.max(0,(cart[key]||0)+ +dl);sync()}
+  else if(t.id==="dAdd"){add(cur.id);closeAll()}
+  else if(t.id==="barBtn")openSheet($("#cart"));
+  else if(t.id==="clear"){Object.keys(cart).forEach(k=>delete cart[k]);sync()}
+  else if(t.id==="wa"){
+    const L=lines();const txt="Hola ToGo, quiero pedir:\n"+L.map(l=>`• ${l.q}× ${l.i.n} (${l.s[0]}) – ${money(l.q*l.s[1])}`).join("\n")+"\n\nTotal: "+$("#cTotal").textContent;
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(txt)}`,"_blank");
+  }
+  else if(d.close!==undefined)closeAll();
+});
+$("#scrim").addEventListener("click",closeAll);
+addEventListener("keydown",e=>e.key==="Escape"&&closeAll());
+
+// Categoría activa al hacer scroll
+const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){
+  document.querySelectorAll("[data-cat]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.cat===en.target.dataset.sec));
+  $(`[data-cat="${en.target.dataset.sec}"]`).scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"});
+}}),{rootMargin:"-130px 0px -70% 0px"});
+
+render();sync();
+document.querySelectorAll("[data-sec]").forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
